@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import networkx as nx
 from networkx.algorithms.shortest_paths import weighted
 
-class FileHandling:
+class ReadEngine:
     filename = 'benchmark/';
     Total_nodes = 0;
     Index = [];
@@ -24,7 +24,7 @@ class FileHandling:
         with open(self.filename, 'r') as f:
             f.readline();
             f.readline();
-            self.Total_nodes = f.readline();
+            self.Total_nodes = int(f.readline());
             f.readline();
             print('Total Nodes: ',self.Total_nodes)
             for i in range(int(self.Total_nodes)):
@@ -87,10 +87,10 @@ class FileHandling:
         nx.draw_networkx(self.G,with_labels=True,node_color='green')
         plt.show()
 
-if __name__ == '__main__':
-    F = FileHandling('input100.txt')
-    F.Read_Coordinates()
-    F.Cleanse_Edges()
-    F.Insert_Nodes()
-    F.Insert_Edges()
-    F.Display_Graph();
+# if __name__ == '__main__':
+#     F = FileHandling('input100.txt')
+#     F.Read_Coordinates()
+#     F.Cleanse_Edges()
+#     F.Insert_Nodes()
+#     F.Insert_Edges()
+#     F.Display_Graph();

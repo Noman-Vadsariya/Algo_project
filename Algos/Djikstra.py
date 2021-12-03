@@ -1,5 +1,4 @@
-from graph import AdjNode
-from graph import Graph
+from .graph import Graph
 import sys
 
 
