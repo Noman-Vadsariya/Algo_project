@@ -9,7 +9,7 @@ class Graph:
 	    # to store graph
 
 	# function to add an edge to graph
-    def addEdge(self, u, v, w):
+    def add_edge(self, u, v, w):
 
         for src,dest,weight in self.graph:
             if(u==dest and v==src and weight>w):
