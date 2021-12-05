@@ -38,7 +38,7 @@ class FileHandling:
         plt.show();
 
 if __name__ == '__main__':
-    F = FileHandling('input10.txt')
+    F = FileHandling('input40.txt')
     F.Read();
     F.DisplayPoints();
     F.DisplayGraph();
