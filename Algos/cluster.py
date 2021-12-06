@@ -2,15 +2,18 @@ import networkx as nx
 import matplotlib.pyplot as plt
 from networkx.algorithms.cluster import clustering
 
-def Local_Clustering(G):
-    cluster = nx.clustering(G)
-    sum = 0.0
-    cnt = 0
+class Cluster:
+    def __init__(self,G):
+        self.G = G
+        self.avg = 0
 
-    for key in cluster:
-        sum += cluster[key]
-        cnt += 1
+    def Local_Clustering(self):
+        cluster = nx.clustering(self.G)
+        sum = 0.0
+        cnt = 0
 
-    avg = sum/cnt
+        for key in cluster:
+            sum += cluster[key]
+            cnt += 1
 
-    print("Average Clustering {0:.3f}".format(avg))
+        self.avg = sum/cnt

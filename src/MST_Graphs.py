@@ -1,0 +1,43 @@
+import networkx as nx
+import matplotlib.pyplot as plt
+
+class MST_Graph:
+    def __init__(self,Index,X_points,Y_Points):
+        self.X_points = X_points
+        self.Y_points = Y_Points
+        self.Index = Index
+
+    def Prims_MST(self,parent,cost):
+        g = nx.Graph()
+        
+        for i in self.Index:
+            g.add_node(self.Index[i],pos=(self.X_points[i],self.Y_points[i]))
+
+        for i in range(0,len(self.Index)):
+            if parent[i]!=-1:
+                g.add_edge(parent[i],i,weight=cost[i])
+
+        pos=nx.get_node_attributes(g,'pos')
+        nx.draw_networkx(g,pos)
+        labels = nx.get_edge_attributes(g,'weight')
+        nx.draw_networkx_edge_labels(g,pos,edge_labels=labels)
+        plt.show()
+
+    def Other_MST(self,mst):
+        g = nx.Graph()
+        
+        for i in self.Index:
+            g.add_node(self.Index[i],pos=(self.X_points[i],self.Y_points[i]))
+
+        for u,v,w in mst:
+                g.add_edge(u,v,weight=w)
+
+        plt.figure(figsize=(200,100),dpi=80)
+        pos=nx.get_node_attributes(g,'pos')
+        nx.draw_networkx(g,pos)
+        labels = nx.get_edge_attributes(g,'weight')
+        nx.draw_networkx_edge_labels(g,pos,edge_labels=labels)
+        plt.show()
+
+        
+

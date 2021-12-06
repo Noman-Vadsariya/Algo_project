@@ -1,47 +1,56 @@
+from networkx.algorithms.shortest_paths import weighted
 from .graph import Graph
 import sys
 
+class Prims:
+    def __init__(self,G,src):
+        self.G = G
+        self.src = src
+        self.parent = [None] * self.G.V
+        self.val = [sys.maxsize] * self.G.V
+        self.PrimCost = 0
 
-def FindMin(val, vis, V):
+    def FindMin(self,val, vis, V):
 
-    min = sys.maxsize
-    vertex = 0
+        min = sys.maxsize
+        vertex = 0
 
-    for i in range(V):
-        if not vis[i] and val[i] < min:
-            min = val[i]
-            vertex = i
+        for i in range(V):
+            if not vis[i] and val[i] < min:
+                min = val[i]
+                vertex = i
 
-    return vertex
+        return vertex
 
 
-def Prims(G, s):
+    def Prims_MST(self):
+        vis = [False] * self.G.V
+        
+        self.val[self.src] = 0
+        self.parent[self.src] = -1
 
-    val = [sys.maxsize] * G.V
-    vis = [False] * G.V
-    p = [None] * G.V
+        for i in range(self.G.V):
+            min = self.FindMin(self.val, vis, self.G.V)
+            vis[min] = True
 
-    val[s] = 0
-    p[s] = -1
+            tNode = self.G.graph[min]
+            while tNode is not None:
+                if not vis[tNode.vertex] and self.val[tNode.vertex] > tNode.weight:
+                    self.val[tNode.vertex] = tNode.weight
+                    self.parent[tNode.vertex] = min
 
-    for i in range(G.V):
-        min = FindMin(val, vis, G.V)
-        vis[min] = True
+                tNode = tNode.next
 
-        tNode = G.graph[min]
-        while tNode is not None:
-            if not vis[tNode.vertex] and val[tNode.vertex] > tNode.weight:
-                val[tNode.vertex] = tNode.weight
-                p[tNode.vertex] = min
+        mst_cost = 0 
+        for i in range(0, self.G.V):
+            print("{} -> {} cost => {}".format(self.parent[i], i, self.val[i]))
+            mst_cost += self.val[i]
+        
+        self.PrimCost = mst_cost
+        print("Minimum Cost {}".format(self.PrimCost))
 
-            tNode = tNode.next
 
-    for i in range(1, G.V):
-        print("{} -> {} cost => {}".format(p[i], i, val[i]))
-        val[0] += val[i]
-
-    print("Minimum Cost {}".format(val[0]))
-
+# def Display_MST():
 
 # if __name__ == "__main__":
 #     V = 9
@@ -65,5 +74,7 @@ def Prims(G, s):
 
 #     graph.print_graph()
 
-#     Prims(graph, 0)
+#     P = Prims(graph, 0)
+#     P.Prims_MST()
+#     P.MST()
 

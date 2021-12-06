@@ -1,21 +1,25 @@
 from .graph import Graph
 
-def BellmanFord(G, src):
-    val = [float("Inf")]*G.V;
+class Ford:
+    def __init__(self,G,src):
+        self.G = G
+        self.val = [float("Inf")]*G.V;
+        self.src = src
 
-    val[src] = 0;
+    def BellmanFord(self):
+        self.val[self.src] = 0;
 
-    for k in range(G.V-1):  #each node will be relaxed vertex-1 times
-        for i in range(G.V): #all the vertexes will be relaxed
-            temp = G.graph[i];
-            
-            while (temp is not None):
-                if (val[temp.vertex] > val[i] + temp.vertex):
-                    val[temp.vertex] = val[i] + temp.weight;
-                temp = temp.next;
+        for k in range(self.G.V-1):  #each node will be relaxed vertex-1 times
+            for i in range(self.G.V): #all the vertexes will be relaxed
+                temp = self.G.graph[i];
+                
+                while (temp is not None):
+                    if (self.val[temp.vertex] > self.val[i] + temp.vertex):
+                        self.val[temp.vertex] = self.val[i] + temp.weight;
+                    temp = temp.next;
 
-    for i in range(G.V):
-        print("{} => {}".format(i,val[i]))
+        for i in range(self.G.V):
+            print("{} => {}".format(i,self.val[i]))
 
 # if __name__ == "__main__":
 #     V = 9

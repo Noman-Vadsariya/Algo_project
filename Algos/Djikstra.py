@@ -1,39 +1,43 @@
 from .graph import Graph
 import sys
 
+class Djikstra:
+    def __init__(self,G,src):
+        self.dist = [float(sys.maxsize)] * G.V
+        self.G = G
+        self.src = src
 
-def FindMin(val, vis, V):
+    def FindMin(self,val, vis, V):
 
-    min = sys.maxsize
-    vertex = 0
+        min = sys.maxsize
+        vertex = 0
 
-    for i in range(V):
-        if not vis[i] and val[i] < min:
-            min = val[i]
-            vertex = i
+        for i in range(V):
+            if not vis[i] and val[i] < min:
+                min = val[i]
+                vertex = i
 
-    return vertex
+        return vertex
 
-def Djikstra(G,src):
+    def djikstra(self):
 
-    dist = [sys.maxsize] * G.V
-    dist[src] = 0
-    vis = [False] * G.V
+        self.dist[self.src] = 0
+        vis = [False] * self.G.V
 
-    for cout in range(G.V):
-        min = FindMin(dist, vis, G.V)
+        for cout in range(self.G.V):
+            min = self.FindMin(self.dist, vis, self.G.V)
 
-        vis[min] = True
-        
-        tNode = G.graph[min]
-        while tNode is not None:
-            if not vis[tNode.vertex] and dist[tNode.vertex] > dist[min] + tNode.weight:
-                    dist[tNode.vertex] = dist[min] + tNode.weight
+            vis[min] = True
             
-            tNode=tNode.next
+            tNode = self.G.graph[min]
+            while tNode is not None:
+                if not vis[tNode.vertex] and self.dist[tNode.vertex] > self.dist[min] + tNode.weight:
+                        self.dist[tNode.vertex] = self.dist[min] + tNode.weight
+                
+                tNode=tNode.next
 
-    for i in range(G.V):
-        print("{}  => {}".format(i,dist[i]))
+        for i in range(self.G.V):
+            print("{}  => {}".format(i,self.dist[i]))
 
 # if __name__ == "__main__":
 #     V = 9

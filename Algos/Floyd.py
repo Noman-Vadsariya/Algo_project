@@ -1,26 +1,29 @@
 from .graph import Graph
 
+class Floyd:
 
-def FloydWarshall(G):
-    dist = [[float("Inf") for i in range(G.V)] for j in range(G.V)]
+    def __init__(self,G):
+        self.G = G
+        self.dist = [[float("Inf") for i in range(G.V)] for j in range(G.V)]
 
-    for i in range(G.V):
-        dist[i][i] = 0
-        temp = G.graph[i]
-        while temp is not None:
-            dist[i][temp.vertex] = temp.weight
-            temp = temp.next
+    def FloydWarshall(self):
+        for i in range(self.G.V):
+            self.dist[i][i] = 0
+            temp = self.G.graph[i]
+            while temp is not None:
+                self.dist[i][temp.vertex] = temp.weight
+                temp = temp.next
 
-    for k in range(G.V):  # for considering each vertex as a source
-        for i in range(G.V):
-            for j in range(G.V):
-                if dist[i][j] > dist[i][k] + dist[k][j]:
-                    dist[i][j] = dist[i][k] + dist[k][j]
+        for k in range(self.G.V):  # for considering each vertex as a source
+            for i in range(self.G.V):
+                for j in range(self.G.V):
+                    if self.dist[i][j] > self.dist[i][k] + self.dist[k][j]:
+                        self.dist[i][j] = self.dist[i][k] + self.dist[k][j]
 
-    for i in range(G.V):
-        for j in range(G.V):
-            print("{}   ".format(dist[i][j]), end="")
-        print()
+        for i in range(self.G.V):
+            for j in range(self.G.V):
+                print("{}   ".format(self.dist[i][j]), end="")
+            print()
 
 
 # if __name__ == "__main__":

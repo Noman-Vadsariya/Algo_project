@@ -80,17 +80,36 @@ class ReadEngine:
         for u,v,w in self.graph:
             self.G.add_edge(u,v,weight=w)
 
-    def Display_Graph(self):
-        # plt.plot(self.X_points,self.Y_points,color='g')
-        plt.figure(figsize=(200,100),dpi=80)
-        plt.axis('on')
-        nx.draw_networkx(self.G,with_labels=True,node_color='green')
-        plt.show()
+    def Initialize(self):
+        self.X_points.clear()
+        self.Y_points.clear()
+        self.Index.clear()
+        self.G = nx.Graph()
+        self.graph.clear()
+        self.src = None
 
-# if __name__ == '__main__':
-#     F = FileHandling('input100.txt')
-#     F.Read_Coordinates()
-#     F.Cleanse_Edges()
-#     F.Insert_Nodes()
-#     F.Insert_Edges()
-#     F.Display_Graph();
+        self.Read_Coordinates()
+        self.Insert_Nodes()
+        self.Cleanse_Edges()
+        self.Insert_Edges()
+        
+    def Display_Graph(self):
+                
+        self.X_points.clear()
+        self.Y_points.clear()
+        self.Index.clear()
+        self.G = nx.Graph()
+        self.graph.clear()
+        self.src = None
+
+        self.Read_Coordinates()
+        self.Insert_Nodes()
+        self.Cleanse_Edges()
+        self.Insert_Edges()
+        
+        plt.figure(figsize=(200,100),dpi=80)
+        pos=nx.get_node_attributes(self.G,'pos')
+        nx.draw_networkx(self.G,pos)
+        labels = nx.get_edge_attributes(self.G,'weight')
+        nx.draw_networkx_edge_labels(self.G,pos,edge_labels=labels)
+        plt.show()

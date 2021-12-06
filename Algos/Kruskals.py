@@ -4,8 +4,12 @@ from collections import defaultdict
 class KruskalGraph:
 
     def __init__(self, vertices):
-	    self.V = vertices # No. of vertices
-	    self.graph = [] # default dictionary
+        self.V = vertices # No. of vertices
+        self.graph = [] # default dictionary
+        self.KruskalMst = []
+        self.BoruvkaMst = []
+        self.KruskalCost = 0
+        self.boruvkaCost = 0
 	    # to store graph
 
 	# function to add an edge to graph
@@ -54,9 +58,6 @@ class KruskalGraph:
         # The main function to construct MST using Kruskal's
         # algorithm
     def KruskalMST(self):
-
-        result = [] # This will store the resultant MST
-
         # An index variable, used for sorted edges
         i = 0
 
@@ -94,22 +95,25 @@ class KruskalGraph:
             # for next edge
             if x != y:
                 e = e + 1
-                result.append([u, v, w])
+                self.KruskalMst.append([u, v, w])
                 self.union(parent, rank, x, y)
             # Else discard the edge
 
         minimumCost = 0
         print ("Edges in the constructed MST")
-        for u, v, weight in result:
+        for u, v, weight in self.KruskalMst:
             minimumCost += weight
-            print("%d -- %d == %d" % (u, v, weight))
-        print("Minimum Spanning Tree" , minimumCost)
+            # print("%d -- %d == %d" % (u, v, weight))
 
-    def boruvkaMST(self):
+        self.KruskalCost = minimumCost
+        # print("Minimum Spanning Tree Cost = {}".format(self.KruskalCost))
+        # print(self.KruskalMst)
+
+    
+    def BoruvkaMST(self):
         parent = []; rank = [];
 
         cheapest =[]
-        result = []
 
         numTrees = self.V
         MSTweight = 0.0
@@ -149,16 +153,16 @@ class KruskalGraph:
                     if set1 != set2 :
                         MSTweight += w
                         self.union(parent, rank, set1, set2)
-                        result.append([u,v,w])
+                        self.BoruvkaMst.append([u,v,w])
                         print ("Edge %d-%d with weight %d included in MST" % (u,v,w))
                         numTrees = numTrees - 1
             
             #reset cheapest array
             cheapest =[-1] * self.V
 
-            
-        print ("Weight of MST is %d" % MSTweight)
-        print(result)
+        self.boruvkaCost = MSTweight      
+        print ("Weight of MST is %d" % self.boruvkaCost)
+        print(self.BoruvkaMst)
 
 # if __name__ == "__main__":
 #     V = 9
