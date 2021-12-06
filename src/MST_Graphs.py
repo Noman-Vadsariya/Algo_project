@@ -30,7 +30,7 @@ class MST_Graph:
             g.add_node(self.Index[i],pos=(self.X_points[i],self.Y_points[i]))
 
         for u,v,w in mst:
-                g.add_edge(u,v,weight=w)
+            g.add_edge(u,v,weight=w)
 
         plt.figure(figsize=(200,100),dpi=80)
         pos=nx.get_node_attributes(g,'pos')

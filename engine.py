@@ -26,13 +26,15 @@ for u,v,w in R.graph:
 # KG.boruvkaMST()
 
 # print()
-D = Djikstra(G,R.src)
-D.djikstra()
+# D = Djikstra(G,R.src)
+# D.djikstra()
 
 # print()
 # FloydWarshall(G)
 # print()
-# BellmanFord(G,R.src)
+F = Ford(G,R.src)
+F.BellmanFord()
+
 # print()
 # print()
 # print()

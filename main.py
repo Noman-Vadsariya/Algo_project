@@ -116,7 +116,7 @@ class Application(tk.Tk):
             
             res = "SOURCE = {}\n\nNode\t|\tCost\n".format(BF.src)
             for i in range(G.V):
-                res += "{}\t|\t{}\n".format(i,math.trunc(BF.val[i],2))
+                res += "{}\t|\t{}\n".format(i,round(BF.val[i],2))
 
         if Algo == Algorithms[5]:
             F = Floyd(G)
@@ -137,16 +137,22 @@ class Application(tk.Tk):
             L.Local_Clustering()
             print("Average Clustering {0:.3f}".format(L.avg))        
 
-        if Algo == Algorithms[0] or Algo == Algorithms[1] or Algo == Algorithms[2]:
+        if Algo == Algorithms[0] or Algo == Algorithms[1] or Algo == Algorithms[2] or Algo == Algorithms[3] or Algo==Algorithms[4]:
             if Algo == Algorithms[0]:
                 obj = P
                 index = 0
             elif Algo == Algorithms[1]:
                 obj = KG
                 index = 1
-            else:
-                obj=KG
+            elif Algo == Algorithms[2]:
+                obj = KG
                 index=2
+            elif Algo == Algorithms[3]:
+                obj = D
+                index = 3
+            elif Algo == Algorithms[4]:
+                obj = BF
+                index = 4
 
             graphBtn = tk.Button(self.newwindow, text="View MST", bd="5", command=lambda: self.showMST(R,obj,index))
             graphBtn.grid(row=9, column=0)
@@ -164,6 +170,8 @@ class Application(tk.Tk):
             mst.Other_MST(obj.KruskalMst)
         elif index == 2:
             mst.Other_MST(obj.BoruvkaMst)
+        elif index == 3 or index==4:
+            mst.Other_MST(obj.path)
 
     def createWidgets(self):
         self.newwindow = tk.Toplevel()

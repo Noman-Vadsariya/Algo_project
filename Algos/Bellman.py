@@ -1,3 +1,4 @@
+from sys import path
 from .graph import Graph
 
 class Ford:
@@ -5,6 +6,7 @@ class Ford:
         self.G = G
         self.val = [float("Inf")]*G.V;
         self.src = src
+        self.path = []
 
     def BellmanFord(self):
         self.val[self.src] = 0;
@@ -14,13 +16,21 @@ class Ford:
                 temp = self.G.graph[i];
                 
                 while (temp is not None):
-                    if (self.val[temp.vertex] > self.val[i] + temp.vertex):
+                    if (self.val[temp.vertex] > self.val[i] + temp.weight):
                         self.val[temp.vertex] = self.val[i] + temp.weight;
+
+                        for u,v,w in self.path:
+                            if v==temp.vertex:
+                                self.path.remove([u,v,w])
+
+                        self.path.append([i,temp.vertex,temp.weight])
+                    
                     temp = temp.next;
 
         for i in range(self.G.V):
             print("{} => {}".format(i,self.val[i]))
-
+        
+        print(self.path)
 # if __name__ == "__main__":
 #     V = 9
 

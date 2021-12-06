@@ -6,6 +6,7 @@ class Djikstra:
         self.dist = [float(sys.maxsize)] * G.V
         self.G = G
         self.src = src
+        self.path = []
 
     def FindMin(self,val, vis, V):
 
@@ -32,12 +33,22 @@ class Djikstra:
             tNode = self.G.graph[min]
             while tNode is not None:
                 if not vis[tNode.vertex] and self.dist[tNode.vertex] > self.dist[min] + tNode.weight:
-                        self.dist[tNode.vertex] = self.dist[min] + tNode.weight
+                    self.dist[tNode.vertex] = self.dist[min] + tNode.weight
+                    curr = tNode.vertex
+                    w = tNode.weight
+                    
+                    for u,v,w in self.path:
+                        if v==tNode.vertex:
+                            self.path.remove([u,v,w])
+
+                    self.path.append([min,tNode.vertex,tNode.weight])
                 
                 tNode=tNode.next
-
+            
         for i in range(self.G.V):
             print("{}  => {}".format(i,self.dist[i]))
+
+        print(self.path)
 
 # if __name__ == "__main__":
 #     V = 9
@@ -61,4 +72,5 @@ class Djikstra:
 
 #     graph.print_graph()
 
-#     Djikstra(graph, 0)
+#     D = Djikstra(graph, 0)
+#     D.djikstra()
