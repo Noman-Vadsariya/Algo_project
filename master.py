@@ -39,46 +39,46 @@ class Application:
     def HomePage(self,root):
         
         #Heading & Text Labels
-        MainHeadingLabel = tk.Label(root,text="Graph Analysis & Simulator",bg='black', fg="red",font=('TimesNew Roman bold',28,'bold', 'underline')).pack(pady=20);
-        DescriptionHeadingLabel = tk.Label(root, text="Project-Description: ",bg='black', fg="red", font=('TimesNew Roman bold',15,'bold', 'underline'),anchor='w').pack(fill='both');
-        DescriptionTextLabel = tk.Label(root, text="'Graphs are a widely used model to describe structural relations. They are built of nodes, which are connected by edges (both directed or undirected). This Graph Simulator simulates different graph algorithms including Minimum Spanning Tree Algorithm, Shortest Path Algorithm and Local Node Clustering Algorithms on a benchmark having graphs with increasing no of nodes. The simulator also provides graphing utility to visualize input and resultant graphs.'", bg= 'Black', fg= 'White', font = ('TimesNew Roman bold',12),wraplengt=1000).pack();
-        AlgorithmsHeadingLabel = tk.Label(root, text= "Algorithms:",bg='black', fg="red", font=('TimesNew Roman bold',15,'bold', 'underline'),anchor='w').pack(fill='both') 
-        AlgorithmsTextLabel = tk.Label(root, text="The Algorithms that could be used in analysis of graph are:", bg= 'Black', fg= 'White', font = ('TimesNew Roman bold',12),anchor='w').pack(pady=20,ipadx=20);
+        MainHeadingLabel = tk.Label(root,text="Graph Analysis & Simulator",bg='#396EB0', fg="#F58840",font=('TimesNew Roman bold',30,'bold', 'underline')).pack(pady=20);
+        DescriptionHeadingLabel = tk.Label(root, text="Project-Description: ", bg='#396EB0' ,fg="#F58840", font=('TimesNew Roman bold',18,'bold', 'underline'),anchor='w').pack(fill='both');
+        DescriptionTextLabel = tk.Label(root, text="'Graphs are a widely used model to describe structural relations. They are built of nodes, which are connected by edges (both directed or undirected). This Graph Simulator simulates different graph algorithms including Minimum Spanning Tree Algorithm, Shortest Path Algorithm and Local Node Clustering Algorithms on a benchmark having graphs with increasing no of nodes. The simulator also provides graphing utility to visualize input and resultant graphs.'", bg='#396EB0' ,fg="#F58840", font = ('TimesNew Roman bold',14,'bold'),wraplengt=1000).pack(pady=20);
+        AlgorithmsHeadingLabel = tk.Label(root, text= "Algorithms:",bg='#396EB0', fg="#F58840", font=('TimesNew Roman bold',16,'bold', 'underline'),anchor='w').pack(fill='both') 
+        AlgorithmsTextLabel = tk.Label(root, text="The Algorithms that could be used in analysis of graph are:", bg='#396EB0', fg="#F58840", font = ('TimesNew Roman bold',12,'bold'),anchor='w').pack(pady=20,ipadx=20);
         
         #HyperLinks
         #1
-        PrimsLabel = tk.Label(root, text="• Prim's Algorithm",bg='black', fg="blue", cursor="hand2", font = ('TimesNew Roman bold',12))
+        PrimsLabel = tk.Label(root, text="• Prim's Algorithm",bg='#396EB0', fg="#F58840", cursor="hand2", font = ('TimesNew Roman bold',12))
         PrimsLabel.pack()
         PrimsLabel.bind("<Button-1>", lambda e: self.callback("https://en.wikipedia.org/wiki/Prim%27s_algorithm"))
         #2
-        KruskalLabel = tk.Label(root, text="• Kruskal's Algorithm",bg='black', fg="blue", cursor="hand2", font = ('TimesNew Roman bold',12))
+        KruskalLabel = tk.Label(root, text="• Kruskal's Algorithm",bg='#396EB0', fg="#F58840", cursor="hand2", font = ('TimesNew Roman bold',12))
         KruskalLabel.pack()
         KruskalLabel.bind("<Button-1>", lambda e: self.callback("https://en.wikipedia.org/wiki/Kruskal%27s_algorithm"))
         #3
-        DijkstraLabel = tk.Label(root, text="• Dijkstra's Algorithm",bg='black', fg="blue", cursor="hand2", font = ('TimesNew Roman bold',12))
+        DijkstraLabel = tk.Label(root, text="• Dijkstra's Algorithm",bg='#396EB0', fg="#F58840", cursor="hand2", font = ('TimesNew Roman bold',12))
         DijkstraLabel.pack()
         DijkstraLabel.bind("<Button-1>", lambda e: self.callback("https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm"))
         #4
-        BellmanFordLabel = tk.Label(root, text="• BellmanFord's Algorithm",bg='black', fg="blue", cursor="hand2", font = ('TimesNew Roman bold',12))
+        BellmanFordLabel = tk.Label(root, text="• BellmanFord's Algorithm",bg='#396EB0', fg="#F58840", cursor="hand2", font = ('TimesNew Roman bold',12))
         BellmanFordLabel.pack()
         BellmanFordLabel.bind("<Button-1>", lambda e: self.callback("https://en.wikipedia.org/wiki/Bellman%E2%80%93Ford_algorithm"))
         #5
-        FloydWarshallLabel = tk.Label(root, text="• FloydWarshall's Algorithm",bg='black', fg="blue", cursor="hand2", font = ('TimesNew Roman bold',12))
+        FloydWarshallLabel = tk.Label(root, text="• FloydWarshall's Algorithm",bg='#396EB0', fg="#F58840", cursor="hand2", font = ('TimesNew Roman bold',12))
         FloydWarshallLabel.pack()
         FloydWarshallLabel.bind("<Button-1>", lambda e: self.callback("https://en.wikipedia.org/wiki/Floyd%E2%80%93Warshall_algorithm"))
         #6
-        ClusteringCoefficientLabel = tk.Label(root, text="• ClusteringCoefficient Algorithm",bg='black', fg="blue", cursor="hand2", font = ('TimesNew Roman bold',12))
+        ClusteringCoefficientLabel = tk.Label(root, text="• Clustering Coefficient Algorithm",bg='#396EB0', fg="#F58840", cursor="hand2", font = ('TimesNew Roman bold',12))
         ClusteringCoefficientLabel.pack()
         ClusteringCoefficientLabel.bind("<Button-1>", lambda e: self.callback("https://en.wikipedia.org/wiki/Clustering_coefficient"))
         #7
-        BorůvkaLabel = tk.Label(root, text="• Borůvka's Algorithm",bg='black', fg="blue", cursor="hand2", font = ('TimesNew Roman bold',12))
+        BorůvkaLabel = tk.Label(root, text="• Borůvka's Algorithm",bg='#396EB0', fg="#F58840", cursor="hand2", font = ('TimesNew Roman bold',12))
         BorůvkaLabel.pack()
         BorůvkaLabel.bind("<Button-1>", lambda e: self.callback("https://en.wikipedia.org/wiki/Bor%C5%AFvka%27s_algorithm"))
         
         #Buttons
-        ExitButton = tk.Button(root, text="Exit", bd="8", font=('TimesNew Roman bold',12,'bold'),fg="red", command=root.destroy).place(x=490, y=500)
-        ProceedToGraphButton = tk.Button(root, text="Illustrate Graphs", bd="8",font=('TimesNew Roman bold',12,'bold'), fg="red", command=self.MainPage).place(x=560, y=500)
-        ProceedToAlgorithmsButton = tk.Button(root, text="Analyze Algorithms", bd="8",font=('TimesNew Roman bold',12,'bold'), fg="red", command=self.AlgorithmPage).place(x=730, y=500)
+        ExitButton = tk.Button(root, text="Exit", bd="8", font=('TimesNew Roman bold',12,'bold'),fg="red", command=root.destroy).place(x=520, y=600)
+        ProceedToGraphButton = tk.Button(root, text="Illustrate Graphs", bd="8",font=('TimesNew Roman bold',12,'bold'), fg="red", command=self.MainPage).place(x=620, y=600)
+        ProceedToAlgorithmsButton = tk.Button(root, text="Analyze Algorithms", bd="8",font=('TimesNew Roman bold',12,'bold'), fg="red", command=self.AlgorithmPage).place(x=820, y=600)
     
     def MainPage(self):
         #Setting of Home and current Page
@@ -120,17 +120,17 @@ class Application:
         NoteTextLabel = tk.Label(self.AlgorithmWindow, text="You can select number of nodes to be illustrated and select any algorithm from many options given below..", bg= 'Black', fg= 'White', font = ('TimesNew Roman bold',12),wraplengt=1000).place(x=75,y=95);
         #ComboBox1
         InputLabel = tk.Label(self.AlgorithmWindow, text="Select no of Nodes: ",bg='black', fg="red",font=('TimesNew Roman bold',12)).place(x=250,y=180)
-        self.genreComboNodes = ttk.Combobox(self.AlgorithmWindow, width=22, values=list(NoOfNodes), state="readonly")
+        self.genreComboNodes = ttk.Combobox(self.AlgorithmWindow, width=22, values=list(NoOfNodes))
         self.genreComboNodes.set("10")
         self.genreComboNodes.place(x=400,y=180)
         #ComboBox2
         Inputlabel1 = tk.Label(self.AlgorithmWindow, text="Select Algorithm: ",bg='black', fg="red",font=('TimesNew Roman bold',12)).place(x=570,y=180)
-        self.genreComboAlgo = ttk.Combobox(self.AlgorithmWindow, width=22, values=list(Algorithms), state="readonly")
+        self.genreComboAlgo = ttk.Combobox(self.AlgorithmWindow, width=22, values=list(Algorithms))
         self.genreComboAlgo.set("Prims Algorithm")
         self.genreComboAlgo.place(x=700,y=180)
         #Buttons
-        self.ViewResultButton = tk.Button(self.AlgorithmWindow, text="View Result", bd="8", font=('TimesNew Roman bold',12,'bold'),fg="red", command=lambda: [self.ViewAlgoGraph(0)]).place(x=480, y=250)
-        self.ViewGraphButton = tk.Button(self.AlgorithmWindow, text="View Graph", bd="8", font=('TimesNew Roman bold',12,'bold'),fg="red", command=lambda: [self.ViewAlgoGraph(1)]).place(x=550, y=250)
+        self.ViewResultButton = tk.Button(self.AlgorithmWindow, text="View Result", bd="8", font=('TimesNew Roman bold',12,'bold'),fg="red", command=lambda: [self.ViewAlgoGraph(0)]).place(x=450, y=250)
+        self.ViewGraphButton = tk.Button(self.AlgorithmWindow, text="View Graph", bd="8", font=('TimesNew Roman bold',12,'bold'),fg="red", command=lambda: [self.ViewAlgoGraph(1)]).place(x=600, y=250)
         BackButton = tk.Button(self.AlgorithmWindow, text="BACK", bd="8", font=('TimesNew Roman bold',12,'bold'),fg="red", command=lambda: [self.master.deiconify(),self.master.state('zoomed'),self.AlgorithmWindow.destroy()]).place(x=0, y=0)
 
     def ViewAlgoGraph(self,Pos):
@@ -169,15 +169,16 @@ class Application:
             D.djikstra()
             res = "SOURCE = {}\n\nNode\t|Cost\n".format(D.src)
             for i in range(G.V):
-                res += "{}\t|\t{}\n".format(i,D.dist[i])
+                res +=  format(i) + "\t|\t"  + format(D.dist[i],'.2f') + '\n'
 
         if Algo == Algorithms[4]:
             BF = Ford(G, R.src)
             BF.BellmanFord()
             
-            res = "SOURCE = {}\n\nNode\t|\tCost\n".format(BF.src)
+            res = "SOURCE = {}".format(BF.src)
+            res += "\nNode\t|\tCost\n"
             for i in range(G.V):
-                res +=  format(i) + "\t|\t"  + format(BF.val[i],'.3f') + '\n'
+                res +=  format(i) + "\t|\t"  + format(BF.val[i],'.2f') + '\n'
 
         if Algo == Algorithms[5]:
             F = Floyd(G)
@@ -196,7 +197,7 @@ class Application:
         if Algo == Algorithms[6]:
             L = Cluster(R.G)
             L.Local_Clustering()
-            print("Average Clustering {0:.3f}".format(L.avg))        
+            res += "Average Clustering Cost = {0:.3f}".format(L.avg)        
 
         if Algo == Algorithms[0] or Algo == Algorithms[1] or Algo == Algorithms[2] or Algo == Algorithms[3] or Algo==Algorithms[4]:
             if Algo == Algorithms[0]:
@@ -217,16 +218,38 @@ class Application:
         if(Pos==1):
              self.showMST(R,obj,index)
         elif(Pos==0):
-            # self.ViewResultButton["state"] = "DISABLED";
-            # self.ViewGraphButton["state"] = "DISABLED";
-            # self.resultLabel.iconify()
+            self.Nodes = self.genreComboNodes.get()
+            self.Algo = self.genreComboAlgo.get()
+
+            self.genreComboNodes.destroy()
+            self.genreComboAlgo.destroy()
+            
+            self.genreComboNodes = ttk.Combobox(self.AlgorithmWindow, width=22, values=list(NoOfNodes), state='disabled')
+            self.genreComboNodes.set(self.Nodes)
+            self.genreComboNodes.place(x=400,y=180)
+
+            self.genreComboAlgo = ttk.Combobox(self.AlgorithmWindow, width=22, values=list(Algorithms), state='disabled')
+            self.genreComboAlgo.set(self.Algo)
+            self.genreComboAlgo.place(x=700,y=180)
+
             self.resultLabel = tk.Label(
             self.AlgorithmWindow, text=res , font="San-Serif",borderwidth=2,relief="solid"
             )
-            # self.resultLabel.withdraw()
-            self.resultLabel.place(x = 100, y = 100)
-            mybtn = tk.Button(self.AlgorithmWindow, text="Select Next Algo", command = lambda: [self.resultLabel.destroy()]).place(x=150,y=150)
+            self.resultLabel.place(x = 500, y = 350)
+            self.resetBtn = tk.Button(self.AlgorithmWindow, text="Select Next Algo",bd="8", font=('TimesNew Roman bold',12,'bold'),fg="red", command = self.resetStates).place(x=750,y=250)
+            
 
+    def resetStates(self):
+        self.resultLabel.destroy()
+        self.genreComboNodes.destroy()
+        self.genreComboAlgo.destroy()
+        self.genreComboNodes = ttk.Combobox(self.AlgorithmWindow, width=22, values=list(NoOfNodes))
+        self.genreComboNodes.set(self.Nodes)
+        self.genreComboNodes.place(x=400,y=180)
+
+        self.genreComboAlgo = ttk.Combobox(self.AlgorithmWindow, width=22, values=list(Algorithms))
+        self.genreComboAlgo.set(self.Algo)
+        self.genreComboAlgo.place(x=700,y=180)
 
     def showMST(self,R,obj,index):
         mst = MST_Graph(R.Index,R.X_points,R.Y_points)
@@ -244,6 +267,6 @@ root.iconify()
 root.title('HomePage')
 # root.geometry("600x400")
 root.state('zoomed')
-root.configure(bg='black')
+root.configure(bg='#396EB0')
 app = Application(root)
 root.mainloop()
