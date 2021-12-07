@@ -107,9 +107,13 @@ class ReadEngine:
         self.Cleanse_Edges()
         self.Insert_Edges()
         
-        plt.figure(figsize=(200,100),dpi=80)
+        # plt.figure()
+        plt.figure('Figure-{} Nodes'.format(self.Total_nodes),figsize=(300,150),dpi=80)
+
         pos=nx.get_node_attributes(self.G,'pos')
         nx.draw_networkx(self.G,pos)
         labels = nx.get_edge_attributes(self.G,'weight')
         nx.draw_networkx_edge_labels(self.G,pos,edge_labels=labels)
+        mng = plt.get_current_fig_manager()
+        mng.window.state('zoomed')
         plt.show()

@@ -4,6 +4,7 @@ from tkinter import ttk
 import matplotlib.pyplot as plt
 import numpy as np
 import math
+from tkhtmlview import HTMLLabel
 
 # File import
 from src.FileReader import ReadEngine
@@ -29,12 +30,21 @@ Algorithms = [
 NoOfNodes = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
 
 
-class Application(tk.Tk):
-    def __init__(self):
+class Application:
+    def __init__(self,root=None):
         super().__init__()
-        # self.root = tk.Tk()
-        self.title("ALGORITHMS & VISUALIZATION")
-        self.create_IntroWidgets()
+        # root = tk.Tk()
+        self.HomePage(root)
+        # self.title("ALGORITHMS & VISUALIZATION")
+        # self.create_IntroWidgets()
+
+    def HomePage(self,root):
+        HeadingLabel = HTMLLabel(root, html = "<h1>Hello world</h1>")
+        # ImageLabel = HTMLLabel(root, html = "<img src='https://www.google.com/imgres?imgurl=http%3A%2F%2Fprod-upp-image-read.ft.com%2F5242668e-93e9-11e8-95f8-8640db9060a7&imgrefurl=https%3A%2F%2Fwww.ft.com%2Fcontent%2F879d96d6-93db-11e8-95f8-8640db9060a7&tbnid=OABTFIgXBbXntM&vet=12ahUKEwihyOvo_dD0AhXGgM4BHXdiCI4QMygJegUIARDfAQ..i&docid=GOTNM2RwZVrV_M&w=2048&h=1152&itg=1&q=algorithms&ved=2ahUKEwihyOvo_dD0AhXGgM4BHXdiCI4QMygJegUIARDfAQ>")
+        # HeadingLabel.grid(pady = 20)
+        # ImageLabel.grid()
+        self.des
+
 
     def Graph(self):
         filename = "input" + self.genreCombo.get() + ".txt"
@@ -175,6 +185,7 @@ class Application(tk.Tk):
 
     def createWidgets(self):
         self.newwindow = tk.Toplevel()
+        
         # self.root.destroy();
         # self.protocol('newwindow', self.quit)
         # self.destroy()
@@ -217,5 +228,7 @@ class Application(tk.Tk):
             row=3, column=0, columnspan=5, sticky="ew"
         )
 
+
 app = Application()
+# root = 
 app.mainloop()

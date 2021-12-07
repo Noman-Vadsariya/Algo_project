@@ -32,12 +32,11 @@ class MST_Graph:
         for u,v,w in mst:
             g.add_edge(u,v,weight=w)
 
-        plt.figure(figsize=(200,100),dpi=80)
+        plt.figure(figsize=(300,150),dpi=80)
         pos=nx.get_node_attributes(g,'pos')
         nx.draw_networkx(g,pos)
         labels = nx.get_edge_attributes(g,'weight')
         nx.draw_networkx_edge_labels(g,pos,edge_labels=labels)
+        mng = plt.get_current_fig_manager()
+        mng.window.state('zoomed')
         plt.show()
-
-        
-
