@@ -14,26 +14,33 @@ R.Initialize()
 # R.Display_Graph()
 
 G = Graph(R.Total_nodes)
+altG = Graph(R.Total_nodes)
 KG = KruskalGraph(R.Total_nodes)
 
 for u,v,w in R.graph:
     G.add_edge(u,v,w)
     KG.add_edge(u,v,w)
 
+for u,v,w in R.altGraph:
+    altG.add_edge(u,v,w)
+    
+# G.print_graph()
 # P = Prims(G,R.src)
 # P.Prims_MST()
+# print("MST COST = {}".format(P.PrimCost))
 # KG.KruskalMST()
-# KG.boruvkaMST()
+# KG.BoruvkaMST()
 
 # print()
 # D = Djikstra(G,R.src)
 # D.djikstra()
 
 # print()
-# FloydWarshall(G)
+F = Floyd(altG)
+F.FloydWarshall()
 # print()
-F = Ford(G,R.src)
-F.BellmanFord()
+# F = Ford(altG,R.src)
+# F.BellmanFord()
 
 # print()
 # print()

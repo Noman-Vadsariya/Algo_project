@@ -7,17 +7,17 @@ class Prims:
         self.G = G
         self.src = src
         self.parent = [None] * self.G.V
-        self.val = [sys.maxsize] * self.G.V
+        self.val = [-sys.maxsize] * self.G.V
         self.PrimCost = 0
 
-    def FindMin(self,val, vis, V):
-
-        min = sys.maxsize
-        vertex = 0
+    def FindMax(self,val, vis, V):
+        
+        max = -sys.maxsize
+        vertex = self.src
 
         for i in range(V):
-            if not vis[i] and val[i] < min:
-                min = val[i]
+            if not vis[i] and val[i] > max:
+                max = val[i]
                 vertex = i
 
         return vertex
@@ -30,14 +30,14 @@ class Prims:
         self.parent[self.src] = -1
 
         for i in range(self.G.V):
-            min = self.FindMin(self.val, vis, self.G.V)
-            vis[min] = True
+            max = self.FindMax(self.val, vis, self.G.V)
+            vis[max] = True
 
-            tNode = self.G.graph[min]
+            tNode = self.G.graph[max]
             while tNode is not None:
-                if not vis[tNode.vertex] and self.val[tNode.vertex] > tNode.weight:
+                if not vis[tNode.vertex] and self.val[tNode.vertex] < tNode.weight:
                     self.val[tNode.vertex] = tNode.weight
-                    self.parent[tNode.vertex] = min
+                    self.parent[tNode.vertex] = max
 
                 tNode = tNode.next
 
