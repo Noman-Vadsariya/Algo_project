@@ -1,5 +1,7 @@
+from tkinter import *
 import tkinter as tk
 from tkinter import ttk
+from prettytable import PrettyTable
 # from tkinter.constants import LEFT
 # from matplotlib.pyplot import text
 # from tkhtmlview import HTMLLabel
@@ -167,32 +169,177 @@ class Application:
         if Algo == Algorithms[3]:
             D = Djikstra(G, R.src)
             D.djikstra()
-            res = "SOURCE = {}\n\nNode\t|Cost\n".format(D.src)
-            for i in range(G.V):
-                res +=  format(i) + "\t|\t"  + format(D.dist[i],'.2f') + '\n'
+        
+                    #--------------------------------------- ADDED THIS FROM NOW ---------------------------------------
+            if(Pos==0):
+                ws  = Tk()
+                ws.title('PythonGuides')
+                ws.geometry('500x500')
+                ws['bg'] = '#AC99F2'
+
+                game_frame = Frame(ws)
+                game_frame.pack()
+                #scrollbar
+                game_scroll = Scrollbar(game_frame,orient='horizontal')
+                game_scroll.pack(side= BOTTOM,fill=X)
+
+                game_scroll = Scrollbar(game_frame)
+                game_scroll.pack(side=RIGHT, fill=Y)
+
+
+
+                my_game = ttk.Treeview(game_frame,xscrollcommand=game_scroll.set, yscrollcommand =game_scroll.set)
+
+
+                my_game.pack()
+
+                game_scroll.config(command=my_game.xview)
+                game_scroll.config(command=my_game.yview)
+                #define our column
+                
+                my_game['columns'] = ('Sno_Nodes', 'costs_of_nodes')
+
+                # format our column
+                my_game.column("#0", width=0,  stretch=NO)
+                my_game.column("Sno_Nodes",anchor=CENTER, width=80)
+                my_game.column("costs_of_nodes",anchor=CENTER, width=80)
+                
+                #Create Headings 
+                my_game.heading("#0",text="Id",anchor=CENTER)
+                my_game.heading("Sno_Nodes",text="Nodes",anchor=CENTER)
+                my_game.heading("costs_of_nodes",text="Costs",anchor=CENTER)
+
+
+        #--------------------------------------- --------------------------------------- ---------------------------------------
+                # res = "SOURCE = {}\n\nNode\t|Cost\n".format(D.src)
+                for i in range(G.V):
+                    # res +=  format(i) + "\t|\t"  + format(D.dist[i],'.2f') + '\n'
+                    # indexes = i
+                    res = format(D.dist[i],'.2f')
+                #     x.field_names = ["Nodes","Cost"]
+
+                #     x.add_row([i,res])
+                #     # x.add_row(["Brisbane",  1146.4])
+
+                # t.insert(INSERT,x)#Inserting table in text widget
+                # t.place(x=100,y=200)
+                        #add data 
+                
+                    my_game.insert(parent='',index='end',iid=i-1,text='', values=([i, res]))
+                my_game.pack()
+                # my_game.place (x=200,y=200)
+
 
         if Algo == Algorithms[4]:
             BF = Ford(G, R.src)
             BF.BellmanFord()
-            
-            res = "SOURCE = {}".format(BF.src)
-            res += "\nNode\t|\tCost\n"
-            for i in range(G.V):
-                res +=  format(i) + "\t|\t"  + format(BF.val[i],'.2f') + '\n'
+            #--------------------------------------- ADDED THIS FROM NOW ---------------------------------------
+            if(Pos==0):
+                ws  = Tk()
+                ws.title('PythonGuides')
+                ws.geometry('500x500')
+                ws['bg'] = '#AC99F2'
+
+                game_frame = Frame(ws)
+                game_frame.pack()
+                #scrollbar
+                game_scroll = Scrollbar(game_frame,orient='horizontal')
+                game_scroll.pack(side= BOTTOM,fill=X)
+
+                game_scroll = Scrollbar(game_frame)
+                game_scroll.pack(side=RIGHT, fill=Y)
+
+
+
+                my_game = ttk.Treeview(game_frame,xscrollcommand=game_scroll.set, yscrollcommand =game_scroll.set)
+
+
+                my_game.pack()
+
+                game_scroll.config(command=my_game.xview)
+                game_scroll.config(command=my_game.yview)
+                #define our column
+                
+                my_game['columns'] = ('Sno_Nodes', 'costs_of_nodes')
+
+                # format our column
+                my_game.column("#0", width=0,  stretch=NO)
+                my_game.column("Sno_Nodes",anchor=CENTER, width=80)
+                my_game.column("costs_of_nodes",anchor=CENTER, width=80)
+                
+                #Create Headings 
+                my_game.heading("#0",text="Id",anchor=CENTER)
+                my_game.heading("Sno_Nodes",text="Nodes",anchor=CENTER)
+                my_game.heading("costs_of_nodes",text="Costs",anchor=CENTER)
+
+
+        #--------------------------------------- --------------------------------------- ---------------------------------------
+            # res = "SOURCE = {}".format(BF.src)
+            # res += "\nNode\t|\tCost\n"
+                for i in range(G.V):
+                    res = format(BF.val[i],'.2f')
+                    # res +=  format(i) + "\t|\t"  + format(BF.val[i],'.2f') + '\n'
+                    my_game.insert(parent='',index='end',iid=i-1,text='', values=([i, res]))
+                my_game.pack()
 
         if Algo == Algorithms[5]:
             F = Floyd(G)
             F.FloydWarshall()
-            
-            res = "         "
-            for i in range(G.V):
-                res+= "{}       ".format(i)
-            res+="\n"
-            for i in range(G.V):
-                res+= "{0:.2f}  ".format(i)
-                for j in range(G.V):
-                    res+= "{0:.2f}  ".format(F.dist[i][j])
-                res+="\n"
+                                            #--------------------------------------- ADDED THIS FROM NOW ---------------------------------------
+            if(Pos==0):
+                ws  = Tk()
+                ws.title('PythonGuides')
+                ws.geometry('500x500')
+                ws['bg'] = '#AC99F2'
+
+                game_frame = Frame(ws)
+                game_frame.pack()
+                #scrollbar
+                game_scroll = Scrollbar(game_frame,orient='horizontal')
+                game_scroll.pack(side= BOTTOM,fill=X)
+
+                game_scroll = Scrollbar(game_frame)
+                game_scroll.pack(side=RIGHT, fill=Y)
+
+
+
+                my_game = ttk.Treeview(game_frame,xscrollcommand=game_scroll.set, yscrollcommand =game_scroll.set)
+
+
+                my_game.pack()
+
+                game_scroll.config(command=my_game.xview)
+                game_scroll.config(command=my_game.yview)
+                #define our column
+                
+                my_game['columns'] = ('Sno_Nodes', 'costs_of_nodes')
+
+                # format our column
+                my_game.column("#0", width=0,  stretch=NO)
+                my_game.column("Sno_Nodes",anchor=CENTER, width=80)
+                my_game.column("costs_of_nodes",anchor=CENTER, width=80)
+                
+                #Create Headings 
+                my_game.heading("#0",text="Id",anchor=CENTER)
+                my_game.heading("Sno_Nodes",text="Nodes",anchor=CENTER)
+                my_game.heading("costs_of_nodes",text="Costs",anchor=CENTER)
+
+
+        #--------------------------------------- --------------------------------------- ---------------------------------------
+            # res = "         " 1=1=1=1=1=100
+            # for i in range(G.V):
+            #     res+= "{}       ".format(i)
+            # res+="\n"
+                for i in range(G.V):
+                    # res+= "{0:.2f}  ".format(i)
+                    for j in range(G.V):
+                    
+                        res = format(F.dist[i][j],'.2f')
+                    
+                    my_game.insert(parent='',index='end',iid=i-1,text='', values=([i, res]))
+                my_game.pack()
+                        # res+= "{0:.2f}  ".format(F.dist[i][j])
+                    # res+="\n"
 
         if Algo == Algorithms[6]:
             L = Cluster(R.G)
@@ -237,7 +384,9 @@ class Application:
             )
             self.resultLabel.place(x = 500, y = 350)
             self.resetBtn = tk.Button(self.AlgorithmWindow, text="Select Next Algo",bd="8", font=('TimesNew Roman bold',12,'bold'),fg="red", command = self.resetStates).place(x=750,y=250)
-            
+            #New Window
+
+        
 
     def resetStates(self):
         self.resultLabel.destroy()

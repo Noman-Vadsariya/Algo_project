@@ -30,10 +30,11 @@ for u,v,w in R.graph:
 # D.djikstra()
 
 # print()
-# FloydWarshall(G)
+F = Floyd(G)
+F.FloydWarshall()
 # print()
-F = Ford(G,R.src)
-F.BellmanFord()
+# F = Ford(G,R.src)
+# F.BellmanFord()
 
 # print()
 # print()
