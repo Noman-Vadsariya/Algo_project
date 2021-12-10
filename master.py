@@ -46,7 +46,7 @@ class Application:
         #Heading & Text Labels
         MainHeadingLabel = tk.Label(root,text="Graph Analysis & Simulator",bg=bgColor, fg=fgColor,font=('TimesNew Roman bold',30,'bold', 'underline')).pack(pady=20);
         DescriptionHeadingLabel = tk.Label(root, text="Project-Description: ", bg=bgColor ,fg=fgColor, font=('TimesNew Roman bold',18,'bold', 'underline'),anchor='w').pack(fill='both');
-        DescriptionTextLabel = tk.Label(root, text="'Graphs are a widely used model to describe structural relations. They are built of nodes, which are connected by edges (both directed or undirected). This Graph Simulator simulates different graph algorithms including Minimum Spanning Tree Algorithm, Shortest Path Algorithm and Local Node Clustering Algorithms on a benchmark having graphs with increasing no of nodes. The simulator also provides graphing utility to visualize input and resultant graphs.'", bg=bgColor ,fg=fgColor, font = ('TimesNew Roman bold',14,'bold'),wraplengt=1000).pack(pady=20);
+        DescriptionTextLabel = tk.Label(root, text="'Graphs are a widely used model to describe structural relations. They are built of nodes, which are connected by edges (both directed or undirected). This Graph Simulator simulates different graph algorithms including Maximum Spanning Tree Algorithm, Shortest Path Algorithm and Local Node Clustering Algorithms on a benchmark having graphs with increasing no of nodes. The simulator also provides graphing utility to visualize input and resultant graphs.'", bg=bgColor ,fg=fgColor, font = ('TimesNew Roman bold',14,'bold'),wraplengt=1000).pack(pady=20);
         AlgorithmsHeadingLabel = tk.Label(root, text= "Algorithms:",bg=bgColor, fg=fgColor, font=('TimesNew Roman bold',16,'bold', 'underline'),anchor='w').pack(fill='both') 
         AlgorithmsTextLabel = tk.Label(root, text="The Algorithms that could be used in analysis of graph are:", bg=bgColor, fg=fgColor, font = ('TimesNew Roman bold',12,'bold'),anchor='w').pack(pady=20,ipadx=20);
         
@@ -134,7 +134,7 @@ class Application:
         Inputlabel1 = tk.Label(self.AlgorithmWindow, text="Select Algorithm: ",bg=bgColor, fg=fgColor,font=('TimesNew Roman bold',12)).place(x=580,y=180)
         self.genreComboAlgo = ttk.Combobox(self.AlgorithmWindow, width=22, values=list(Algorithms))
         self.genreComboAlgo.set("Prims Algorithm")
-        self.genreComboAlgo.place(x=700,y=180)
+        self.genreComboAlgo.place(x=730,y=180)
 
         BackButton = tk.Button(self.AlgorithmWindow, text="BACK", bd="8", font=('TimesNew Roman bold',12,'bold'),fg=fgColor, command=lambda: [self.master.deiconify(),self.master.state('zoomed'),self.AlgorithmWindow.destroy()]).place(x=0, y=0)
         self.nextBtn = tk.Button(self.AlgorithmWindow, text="Next", bd="8", font=('TimesNew Roman bold',12,'bold'),fg=fgColor, command= self.selectNodes).place(x=250, y=250)
@@ -167,7 +167,7 @@ class Application:
             DescLabel = tk.Label(self.AlgorithmWindow, text="Destination Nodes: ",bg=bgColor, fg=fgColor,font=('TimesNew Roman bold',12)).place(x=580,y=350)
             self.destGenreCombo = ttk.Combobox(self.AlgorithmWindow, width=22, values=list(self.DEST_Nodes))
             self.destGenreCombo.set("ALL")
-            self.destGenreCombo.place(x=700,y=350)
+            self.destGenreCombo.place(x=730,y=350)
             
             self.ViewGraphButton = tk.Button(self.AlgorithmWindow, text="View Graph", bd="8", font=('TimesNew Roman bold',12,'bold'),fg=fgColor, command=lambda: [self.ViewAlgoGraph(1)]).place(x=600, y=450)
 
@@ -197,15 +197,15 @@ class Application:
         if Algo == Algorithms[0]:
             P = Prims(G, self.R.src)
             P.Prims_MST()
-            res = "Minimum Spanning Tree Cost = {}".format(round(P.PrimCost,2))
+            res = "Maximum Spanning Tree Cost = {}".format(round(P.PrimCost,2))
         if Algo == Algorithms[1]:
             KG.KruskalMST()
-            print("Minimum Spanning Tree Cost = {}".format(round(KG.KruskalCost,2)))
-            res = "Minimum Spanning Tree Cost = {}".format(round(KG.KruskalCost,2))
+            print("Maximum Spanning Tree Cost = {}".format(round(KG.KruskalCost,2)))
+            res = "Maximum Spanning Tree Cost = {}".format(round(KG.KruskalCost,2))
         if Algo == Algorithms[2]:
             KG.BoruvkaMST()
-            print("Minimum Spanning Tree Cost = {}".format(KG.boruvkaCost))
-            res = "Minimum Spanning Tree Cost = {}".format(round(KG.boruvkaCost,2))
+            print("Maximum Spanning Tree Cost = {}".format(KG.boruvkaCost))
+            res = "Maximum Spanning Tree Cost = {}".format(round(KG.boruvkaCost,2))
         
         if Algo == Algorithms[3]:
             D = Djikstra(G, self.R.src)
@@ -398,7 +398,7 @@ class Application:
             self.AlgorithmWindow, text=res , font="San-Serif",borderwidth=2,relief="solid"
             )
             self.resultLabel.place(x = 400, y = 550)
-            self.resetBtn = tk.Button(self.AlgorithmWindow, text="Select Next Algo",bd="8", font=('TimesNew Roman bold',12,'bold'),fg=fgColor, command = lambda : [self.resetStates(Algo)]).place(x=720,y=450)
+            self.resetBtn = tk.Button(self.AlgorithmWindow, text="Select Next Algo",bd="8", font=('TimesNew Roman bold',12,'bold'),fg=fgColor, command = lambda : [self.resetStates(Algo)]).place(x=800,y=450)
             #New Window
 
     def resetStates(self, Algo):
