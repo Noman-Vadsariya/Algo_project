@@ -1,3 +1,4 @@
+from os import stat
 from tkinter import *
 import tkinter as tk
 from tkinter import ttk
@@ -148,29 +149,33 @@ class Application:
         self.R = ReadEngine(filename)
         self.R.Initialize()
 
-        if Algo != Algorithms[6]:
-            self.genreComboAlgo.config(state="disabled")
-            self.genreComboNodes.config(state="disabled")
+        self.genreComboAlgo.config(state="disabled")
+        self.genreComboNodes.config(state="disabled")
 
-            self.SRC_Nodes = []
-            self.DEST_Nodes = ['ALL']
+        self.SRC_Nodes = []
+        self.DEST_Nodes = ['ALL']
 
-            for i in range(self.R.Total_nodes):
-                self.SRC_Nodes.append(i)
-                self.DEST_Nodes.append(i)
+        for i in range(self.R.Total_nodes):
+            self.SRC_Nodes.append(i)
+            self.DEST_Nodes.append(i)
 
-            SrcLabel = tk.Label(self.AlgorithmWindow, text="Source Node: ",bg=bgColor, fg=fgColor,font=('TimesNew Roman bold',12)).place(x=250,y=350)
-            self.srcGenreCombo = ttk.Combobox(self.AlgorithmWindow, width=22, values=list(self.SRC_Nodes))
-            self.srcGenreCombo.set("1")
-            self.srcGenreCombo.place(x=400,y=350)
+        SrcLabel = tk.Label(self.AlgorithmWindow, text="Source Node: ",bg=bgColor, fg=fgColor,font=('TimesNew Roman bold',12)).place(x=250,y=350)
+        self.srcGenreCombo = ttk.Combobox(self.AlgorithmWindow, width=22, values=list(self.SRC_Nodes))
+        self.srcGenreCombo.set("1")
+        self.srcGenreCombo.place(x=400,y=350)
 
-            DescLabel = tk.Label(self.AlgorithmWindow, text="Destination Nodes: ",bg=bgColor, fg=fgColor,font=('TimesNew Roman bold',12)).place(x=580,y=350)
-            self.destGenreCombo = ttk.Combobox(self.AlgorithmWindow, width=22, values=list(self.DEST_Nodes))
-            self.destGenreCombo.set("ALL")
-            self.destGenreCombo.place(x=730,y=350)
-            
+        DescLabel = tk.Label(self.AlgorithmWindow, text="Destination Nodes: ",bg=bgColor, fg=fgColor,font=('TimesNew Roman bold',12)).place(x=580,y=350)
+        self.destGenreCombo = ttk.Combobox(self.AlgorithmWindow, width=22, values=list(self.DEST_Nodes))
+        self.destGenreCombo.set("ALL")
+        self.destGenreCombo.place(x=730,y=350)
+        
+        if Algo == Algorithms[6]:
+            self.srcGenreCombo.config(state="disabled")
+            self.destGenreCombo.config(state="disabled")
+            self.ViewGraphButton = tk.Button(self.AlgorithmWindow, text="View Graph", bd="8", font=('TimesNew Roman bold',12,'bold'),fg=fgColor, command=lambda: [self.ViewAlgoGraph(1)],state="disabled").place(x=600, y=450)
+        else:
             self.ViewGraphButton = tk.Button(self.AlgorithmWindow, text="View Graph", bd="8", font=('TimesNew Roman bold',12,'bold'),fg=fgColor, command=lambda: [self.ViewAlgoGraph(1)]).place(x=600, y=450)
-
+            
         self.ViewResultButton = tk.Button(self.AlgorithmWindow, text="View Result", bd="8", font=('TimesNew Roman bold',12,'bold'),fg=fgColor, command=lambda: [self.ViewAlgoGraph(0)]).place(x=450, y=450)
 
     def ViewAlgoGraph(self,Pos):
@@ -189,10 +194,10 @@ class Application:
         Algo = self.genreComboAlgo.get()
         res=""
         
-        if(Algo != Algorithms[6]):
-            Src = self.srcGenreCombo.get()
-            self.R.src = int(Src)
-            print(self.R.src)
+        Src = self.srcGenreCombo.get()
+        dest = self.destGenreCombo.get()
+        self.R.src = int(Src)
+        print(self.R.src)
 
         if Algo == Algorithms[0]:
             P = Prims(G, self.R.src)
@@ -284,7 +289,7 @@ class Application:
                 my_game.pack()
 
                 game_scroll.config(command=my_game.xview)
-                game_scroll.config(command=my_game.yview)
+                # game_scroll.config(command=my_game.yview)
                 #define our column
                 
                 my_game['columns'] = ('Sno_Nodes', 'costs_of_nodes')
@@ -368,11 +373,10 @@ class Application:
 
                     my_game.pack()
                     
-
         if Algo == Algorithms[6]:
             L = Cluster(self.R.G)
             L.Local_Clustering()
-            res += "Average Clustering Cost = {0:.3f}".format(L.avg)        
+            res += "Average Clustering Cost = {0:.3f}".format(L.avg)      
 
         if Algo == Algorithms[0] or Algo == Algorithms[1] or Algo == Algorithms[2] or Algo == Algorithms[3] or Algo==Algorithms[4]:
             if Algo == Algorithms[0]:
@@ -391,20 +395,26 @@ class Application:
                 obj = BF
                 index = 4
         if(Pos==1):
-             self.showMST(self.R,obj,index)
+            if(dest=='ALL'):
+                self.showMST(self.R,obj,index)
+            else:
+                self.showMST(self.R,obj,index,self.R.src,int(dest))
         
         elif(Pos==0):
-            self.resultLabel = tk.Label(
-            self.AlgorithmWindow, text=res , font="San-Serif",borderwidth=2,relief="solid"
-            )
-            self.resultLabel.place(x = 400, y = 550)
+            if(Algo == Algorithms[0] or Algo==Algorithms[1] or Algo==Algorithms[2] or Algo==Algorithms[6]):
+                self.resultLabel = tk.Label(
+                self.AlgorithmWindow, text=res , font="San-Serif",borderwidth=2,relief="solid"
+                )
+                self.resultLabel.place(x = 400, y = 550)
             self.resetBtn = tk.Button(self.AlgorithmWindow, text="Select Next Algo",bd="8", font=('TimesNew Roman bold',12,'bold'),fg=fgColor, command = lambda : [self.resetStates(Algo)]).place(x=800,y=450)
             #New Window
 
     def resetStates(self, Algo):
         self.genreComboAlgo.config(state="normal")
         self.genreComboNodes.config(state="normal")
-        self.resultLabel.destroy()
+
+        if(Algo == Algorithms[0] or Algo==Algorithms[1] or Algo==Algorithms[2] or Algo==Algorithms[6]):
+            self.resultLabel.destroy()
 
         if(Algo != Algorithms[6]):
             self.srcGenreCombo.config(state="disabled")
@@ -412,7 +422,7 @@ class Application:
 
         
 
-    def showMST(self,R,obj,index):
+    def showMST(self,R,obj,index,src=None,dest=None):
         mst = MST_Graph(R.Index,R.X_points,R.Y_points)
         if index==0:
             mst.Prims_MST(obj.parent,obj.val)
@@ -420,8 +430,10 @@ class Application:
             mst.Other_MST(obj.KruskalMst)
         elif index == 2:
             mst.Other_MST(obj.BoruvkaMst)
-        elif index == 3 or index==4:
+        elif (index == 3 or index==4) and dest is None:
             mst.Other_MST(obj.path)
+        elif (index==3 or index==4) and dest is not None:
+            mst.MST_SRC_DEST(src,dest,obj.parent,obj.cost)
 
 root = tk.Tk()
 root.iconify()
