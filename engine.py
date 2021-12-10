@@ -32,15 +32,15 @@ for u,v,w in R.altGraph:
 # KG.BoruvkaMST()
 
 # print()
-# D = Djikstra(G,R.src)
-# D.djikstra()
+D = Djikstra(G,R.src)
+D.djikstra()
 
 # print()
-F = Floyd(altG)
-F.FloydWarshall()
+# F = Floyd(altG)
+# F.FloydWarshall()
 # print()
-# F = Ford(altG,R.src)
-# F.BellmanFord()
+F = Ford(altG,R.src)
+F.BellmanFord()
 
 # print()
 # print()
@@ -49,7 +49,9 @@ F.FloydWarshall()
 
 
 # MST GRAPHS
-# mst = MST_Graph(R.Index,R.X_points,R.Y_points)
+mst = MST_Graph(R.Index,R.X_points,R.Y_points)
 # mst.Prims_MST(P.parent,P.val)
 # mst.Other_MST(KG.KruskalMst)
 # mst.Other_MST(KG.BoruvkaMst)
+mst.MST_SRC_DEST(1,6,D.parent,D.cost)
+mst.MST_SRC_DEST(1,6,F.parent,F.cost)

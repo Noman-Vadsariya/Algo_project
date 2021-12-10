@@ -7,6 +7,8 @@ class Djikstra:
         self.G = G
         self.src = src
         self.path = []
+        self.parent = [None] * G.V
+        self.cost = [sys.maxsize]*G.V
 
     def FindMax(self,val, vis, V):
 
@@ -24,6 +26,8 @@ class Djikstra:
 
         self.dist[self.src] = 0
         vis = [False] * self.G.V
+        self.parent[self.src] = -1
+        self.cost[self.src] = 0
 
         for cout in range(self.G.V):
             max = self.FindMax(self.dist, vis, self.G.V)
@@ -34,6 +38,9 @@ class Djikstra:
             while tNode is not None:
                 if not vis[tNode.vertex] and self.dist[tNode.vertex] < self.dist[max] + tNode.weight:
                     self.dist[tNode.vertex] = self.dist[max] + tNode.weight
+                    self.parent[tNode.vertex] = max
+                    self.cost[tNode.vertex] = tNode.weight
+                    
                     curr = tNode.vertex
                     w = tNode.weight
                     

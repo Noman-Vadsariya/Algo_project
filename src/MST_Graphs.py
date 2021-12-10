@@ -40,3 +40,34 @@ class MST_Graph:
         mng = plt.get_current_fig_manager()
         mng.window.state('zoomed')
         plt.show()
+
+    def MST_SRC_DEST(self,src,dest,parent,cost):
+        g = nx.Graph()
+        print(parent)       
+        print(cost)
+
+        g = nx.Graph()
+        
+        for i in self.Index:
+            g.add_node(self.Index[i],pos=(self.X_points[i],self.Y_points[i]))
+
+        test = []
+        while True:
+            if(parent[dest]==-1):
+                break
+
+            u = parent[dest]
+            v = dest
+            w = cost[dest]
+            g.add_edge(u,v,weight=w)
+            test.append([u,v,w])
+            dest = u        
+
+        plt.figure('Resultant Graph',figsize=(300,150),dpi=80)
+        pos=nx.get_node_attributes(g,'pos')
+        nx.draw_networkx(g,pos)
+        labels = nx.get_edge_attributes(g,'weight')
+        nx.draw_networkx_edge_labels(g,pos,edge_labels=labels)
+        mng = plt.get_current_fig_manager()
+        mng.window.state('zoomed')
+        plt.show()

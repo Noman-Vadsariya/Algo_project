@@ -56,7 +56,8 @@ class ReadEngine:
                     j+=2                    
 
                     self.graph.append([u,v,w])
-                    self.altGraph.append([u,v,1/w]) #for bellman ford and Floyd Warshall
+                    w = round(1/w,4)
+                    self.altGraph.append([u,v,w]) #for bellman ford and Floyd Warshall
                 # print()
 
             f.readline()
@@ -73,7 +74,8 @@ class ReadEngine:
         for u,v,w in self.graph:
             if u == v:
                 self.graph.remove([u,v,w])
-                self.altGraph.remove([u,v,1/w])
+                w = round(1/w,4)
+                self.altGraph.remove([u,v,w])
 
     def Insert_Nodes(self):
         for i in self.Index:
