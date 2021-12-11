@@ -2,10 +2,6 @@ from os import stat
 from tkinter import *
 import tkinter as tk
 from tkinter import ttk
-# from prettytable import PrettyTable
-# from tkinter.constants import LEFT
-# from matplotlib.pyplot import text
-# from tkhtmlview import HTMLLabel
 import webbrowser
 
 # File import
@@ -138,7 +134,7 @@ class Application:
         self.genreComboAlgo.place(x=730,y=180)
 
         BackButton = tk.Button(self.AlgorithmWindow, text="BACK", bd="8", font=('TimesNew Roman bold',12,'bold'),fg=fgColor, command=lambda: [self.master.deiconify(),self.master.state('zoomed'),self.AlgorithmWindow.destroy()]).place(x=0, y=0)
-        self.nextBtn = tk.Button(self.AlgorithmWindow, text="Next", bd="8", font=('TimesNew Roman bold',12,'bold'),fg=fgColor, command= self.selectNodes).place(x=250, y=250)
+        self.nextBtn = tk.Button(self.AlgorithmWindow, text="Next", bd="8", font=('TimesNew Roman bold',12,'bold'),fg=fgColor, command= self.selectNodes).place(x=600, y=250)
 
     def selectNodes(self):
 
@@ -219,25 +215,28 @@ class Application:
                     #--------------------------------------- ADDED THIS FROM NOW ---------------------------------------
             if(Pos==0):
                 ws  = Tk()
-                ws.title('PythonGuides')
-                ws.geometry('500x500')
+                ws.state('zoomed')
+                ws.title('DIJIKSTRA RESULT')
+                # ws.geometry('500x500')
                 ws['bg'] = '#AC99F2'
-
-                game_frame = Frame(ws)
-                game_frame.pack()
+                # rootHeight = ws.winfo_height()
+                # rootWidth = ws.winfo_width()
+                game_frame = ttk.Frame(ws)
+                game_frame.pack(fill='both', expand=True)
                 #scrollbar
-                game_scroll = Scrollbar(game_frame,orient='horizontal')
-                game_scroll.pack(side= BOTTOM,fill=X)
+                h = Scrollbar(game_frame,orient='horizontal')
+                h.pack(side= BOTTOM,fill=X)
 
-                game_scroll = Scrollbar(game_frame)
-                game_scroll.pack(side=RIGHT, fill=Y)
+                v = Scrollbar(game_frame)
+                v.pack(side=RIGHT, fill=Y)
 
-                my_game = ttk.Treeview(game_frame,xscrollcommand=game_scroll.set, yscrollcommand =game_scroll.set)
+                my_game = ttk.Treeview(game_frame,xscrollcommand=h.set, yscrollcommand =v.set)
 
-                my_game.pack()
 
-                game_scroll.config(command=my_game.xview)
-                game_scroll.config(command=my_game.yview)
+                my_game.pack(fill='both', expand=True)
+
+                h.config(command=my_game.xview)
+                v.config(command=my_game.yview)
                 #define our column
                 
                 my_game['columns'] = ('Sno_Nodes', 'costs_of_nodes')
@@ -268,28 +267,27 @@ class Application:
             #--------------------------------------- ADDED THIS FROM NOW ---------------------------------------
             if(Pos==0):
                 ws  = Tk()
-                ws.title('PythonGuides')
-                ws.geometry('500x500')
+                ws.state('zoomed')
+                ws.title('BELLMANFORD RESULT')
+                # ws.geometry('500x500')
                 ws['bg'] = '#AC99F2'
 
-                game_frame = Frame(ws)
-                game_frame.pack()
+                game_frame = ttk.Frame(ws)
+                game_frame.pack(fill='both', expand=True)
                 #scrollbar
-                game_scroll = Scrollbar(game_frame,orient='horizontal')
-                game_scroll.pack(side= BOTTOM,fill=X)
+                h = Scrollbar(game_frame,orient='horizontal')
+                h.pack(side= BOTTOM,fill=X)
 
-                game_scroll = Scrollbar(game_frame)
-                game_scroll.pack(side=RIGHT, fill=Y)
+                v = Scrollbar(game_frame)
+                v.pack(side=RIGHT, fill=Y)
 
-
-
-                my_game = ttk.Treeview(game_frame,xscrollcommand=game_scroll.set, yscrollcommand =game_scroll.set)
+                my_game = ttk.Treeview(game_frame,xscrollcommand=h.set, yscrollcommand =v.set)
 
 
-                my_game.pack()
+                my_game.pack(fill='both', expand=True)
 
-                game_scroll.config(command=my_game.xview)
-                # game_scroll.config(command=my_game.yview)
+                h.config(command=my_game.xview)
+                v.config(command=my_game.yview)
                 #define our column
                 
                 my_game['columns'] = ('Sno_Nodes', 'costs_of_nodes')
@@ -318,26 +316,27 @@ class Application:
             #--------------------------------------- ADDED THIS FROM NOW ---------------------------------------
             if(Pos==0):
                 ws  = Tk()
-                ws.title('PythonGuides')
-                ws.geometry('500x500')
+                ws.state('zoomed')
+                ws.title('FLOYDWARSHALL RESULT')
+                # ws.geometry('1000x600')
                 ws['bg'] = '#AC99F2'
 
-                game_frame = Frame(ws)
-                game_frame.pack()
+                game_frame = ttk.Frame(ws)
+                game_frame.pack(fill='both', expand=True)
                 #scrollbar
-                game_scroll = Scrollbar(game_frame,orient='horizontal')
-                game_scroll.pack(side= BOTTOM,fill=X)
+                h = Scrollbar(game_frame,orient='horizontal')
+                h.pack(side= BOTTOM,fill=X)
 
-                game_scroll = Scrollbar(game_frame)
-                game_scroll.pack(side=RIGHT, fill=Y)
+                v = Scrollbar(game_frame)
+                v.pack(side=RIGHT, fill=Y)
 
-                my_game = ttk.Treeview(game_frame,xscrollcommand=game_scroll.set, yscrollcommand =game_scroll.set)
+                my_game = ttk.Treeview(game_frame,xscrollcommand=h.set, yscrollcommand =v.set)
 
 
-                my_game.pack()
+                my_game.pack(fill='both', expand=True)
 
-                game_scroll.config(command=my_game.xview)
-                game_scroll.config(command=my_game.yview)
+                h.config(command=my_game.xview)
+                v.config(command=my_game.yview)
                 #define our column
                 
                 col = []    
@@ -405,8 +404,8 @@ class Application:
                 self.resultLabel = tk.Label(
                 self.AlgorithmWindow, text=res , font="San-Serif",borderwidth=2,relief="solid"
                 )
-                self.resultLabel.place(x = 400, y = 550)
-            self.resetBtn = tk.Button(self.AlgorithmWindow, text="Select Next Algo",bd="8", font=('TimesNew Roman bold',12,'bold'),fg=fgColor, command = lambda : [self.resetStates(Algo)]).place(x=800,y=450)
+                self.resultLabel.place(x = 550, y = 550)
+            self.resetBtn = tk.Button(self.AlgorithmWindow, text="Select Next Algo",bd="8", font=('TimesNew Roman bold',12,'bold'),fg=fgColor, command = lambda : [self.resetStates(Algo)]).place(x=750,y=450)
             #New Window
 
     def resetStates(self, Algo):
