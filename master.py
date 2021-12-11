@@ -213,7 +213,6 @@ class Application:
             D = Djikstra(G, self.R.src)
             D.djikstra()
         
-                    #--------------------------------------- ADDED THIS FROM NOW ---------------------------------------
             if(Pos==0):
                 ws  = Tk()
                 ws.state('zoomed')
@@ -251,9 +250,6 @@ class Application:
                 my_game.heading("#0",text="Id",anchor=CENTER)
                 my_game.heading("Sno_Nodes",text="Nodes",anchor=CENTER)
                 my_game.heading("costs_of_nodes",text="Costs",anchor=CENTER)
-
-
-        #--------------------------------------- --------------------------------------- ---------------------------------------
                 for i in range(G.V):
                     res = format(D.dist[i],'.2f')
                     my_game.insert(parent='',index='end',iid=i-1,text='', values=([i, res]))
@@ -264,7 +260,7 @@ class Application:
         if Algo == Algorithms[4]:
             BF = Ford(altG, self.R.src)
             BF.BellmanFord()
-            #--------------------------------------- ADDED THIS FROM NOW ---------------------------------------
+
             if(Pos==0):
                 ws  = Tk()
                 ws.state('zoomed')
@@ -302,8 +298,6 @@ class Application:
                 my_game.heading("Sno_Nodes",text="Nodes",anchor=CENTER)
                 my_game.heading("costs_of_nodes",text="Costs",anchor=CENTER)
 
-
-        #--------------------------------------- --------------------------------------- ---------------------------------------
                 for i in range(G.V):
                     res = format(BF.val[i]*10,'.4f')
                     # res +=  format(i) + "\t|\t"  + format(BF.val[i],'.2f') + '\n'
@@ -313,7 +307,6 @@ class Application:
         if Algo == Algorithms[5]:
             F = Floyd(altG)
             F.FloydWarshall()
-            #--------------------------------------- ADDED THIS FROM NOW ---------------------------------------
             if(Pos==0):
                 ws  = Tk()
                 ws.state('zoomed')
@@ -356,7 +349,6 @@ class Application:
                 for i in range(G.V):
                     my_game.heading("{}".format(i),text="{}".format(i))
 
-        #--------------------------------------- --------------------------------------- ---------------------------------------
                 array = []
                 for i in range(G.V):
                     array.append(i)
@@ -436,7 +428,6 @@ class Application:
 root = tk.Tk()
 root.iconify()
 root.title('HomePage')
-# root.geometry("600x400")
 root.state('zoomed')
 root.configure(bg=bgColor)
 app = Application(root)
