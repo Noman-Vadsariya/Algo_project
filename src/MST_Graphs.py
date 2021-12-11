@@ -17,12 +17,14 @@ class MST_Graph:
             if parent[i]!=-1:
                 g.add_edge(parent[i],i,weight=cost[i])
 
+        plt.figure('Resultant Graph',figsize=(320,160),dpi=80)
         pos=nx.get_node_attributes(g,'pos')
-        nx.draw_networkx(g,pos)
+        nx.draw_networkx(g,pos,node_color='#00b4d9')
         labels = nx.get_edge_attributes(g,'weight')
         nx.draw_networkx_edge_labels(g,pos,edge_labels=labels)
         mng = plt.get_current_fig_manager()
         mng.window.state('zoomed')
+        plt.tight_layout()
         plt.show()
 
     def Other_MST(self,mst):
@@ -34,13 +36,14 @@ class MST_Graph:
         for u,v,w in mst:
             g.add_edge(u,v,weight=w)
 
-        plt.figure(figsize=(300,150),dpi=80)
+        plt.figure('Resultant Graph',figsize=(320,160),dpi=80)
         pos=nx.get_node_attributes(g,'pos')
-        nx.draw_networkx(g,pos)
+        nx.draw_networkx(g,pos,node_color='#00b4d9')
         labels = nx.get_edge_attributes(g,'weight')
         nx.draw_networkx_edge_labels(g,pos,edge_labels=labels)
         mng = plt.get_current_fig_manager()
         mng.window.state('zoomed')
+        plt.tight_layout()
         plt.show()
 
     def MST_SRC_DEST(self,src,dest,parent,cost):
@@ -65,11 +68,12 @@ class MST_Graph:
             test.append([u,v,w])
             dest = u        
 
-        plt.figure('Resultant Graph',figsize=(300,150),dpi=80)
+        plt.figure('Resultant Graph',figsize=(320,160),dpi=80)
         pos=nx.get_node_attributes(g,'pos')
-        nx.draw_networkx(g,pos)
+        nx.draw_networkx(g,pos,node_color='#00b4d9')
         labels = nx.get_edge_attributes(g,'weight')
         nx.draw_networkx_edge_labels(g,pos,edge_labels=labels)
         mng = plt.get_current_fig_manager()
         mng.window.state('zoomed')
+        plt.tight_layout()
         plt.show()
