@@ -2,10 +2,6 @@ from os import stat
 from tkinter import *
 import tkinter as tk
 from tkinter import ttk
-# from prettytable import PrettyTable
-# from tkinter.constants import LEFT
-# from matplotlib.pyplot import text
-# from tkhtmlview import HTMLLabel
 import webbrowser
 
 # File import
