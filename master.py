@@ -134,7 +134,7 @@ class Application:
         self.genreComboAlgo.place(x=730,y=180)
 
         BackButton = tk.Button(self.AlgorithmWindow, text="BACK", bd="8", font=('TimesNew Roman bold',12,'bold'),fg=fgColor, command=lambda: [self.master.deiconify(),self.master.state('zoomed'),self.AlgorithmWindow.destroy()]).place(x=0, y=0)
-        self.nextBtn = tk.Button(self.AlgorithmWindow, text="Next", bd="8", font=('TimesNew Roman bold',12,'bold'),fg=fgColor, command= self.selectNodes).place(x=250, y=250)
+        self.nextBtn = tk.Button(self.AlgorithmWindow, text="Next", bd="8", font=('TimesNew Roman bold',12,'bold'),fg=fgColor, command= self.selectNodes).place(x=600, y=250)
 
     def selectNodes(self):
 
@@ -164,7 +164,8 @@ class Application:
         self.destGenreCombo = ttk.Combobox(self.AlgorithmWindow, width=22, values=list(self.DEST_Nodes))
         self.destGenreCombo.set("ALL")
         self.destGenreCombo.place(x=730,y=350)
-        
+        if Algo == Algorithms[0] or Algo == Algorithms[1] or Algo == Algorithms[2]:
+            self.destGenreCombo.config(state="disabled")
         if Algo == Algorithms[6]:
             self.srcGenreCombo.config(state="disabled")
             self.destGenreCombo.config(state="disabled")
@@ -212,28 +213,30 @@ class Application:
             D = Djikstra(G, self.R.src)
             D.djikstra()
         
-                    #--------------------------------------- ADDED THIS FROM NOW ---------------------------------------
             if(Pos==0):
                 ws  = Tk()
-                ws.title('PythonGuides')
-                ws.geometry('500x500')
+                ws.state('zoomed')
+                ws.title('DIJIKSTRA RESULT')
+                # ws.geometry('500x500')
                 ws['bg'] = '#AC99F2'
-
-                game_frame = Frame(ws)
-                game_frame.pack()
+                # rootHeight = ws.winfo_height()
+                # rootWidth = ws.winfo_width()
+                game_frame = ttk.Frame(ws)
+                game_frame.pack(fill='both', expand=True)
                 #scrollbar
-                game_scroll = Scrollbar(game_frame,orient='horizontal')
-                game_scroll.pack(side= BOTTOM,fill=X)
+                h = Scrollbar(game_frame,orient='horizontal')
+                h.pack(side= BOTTOM,fill=X)
 
-                game_scroll = Scrollbar(game_frame)
-                game_scroll.pack(side=RIGHT, fill=Y)
+                v = Scrollbar(game_frame)
+                v.pack(side=RIGHT, fill=Y)
 
-                my_game = ttk.Treeview(game_frame,xscrollcommand=game_scroll.set, yscrollcommand =game_scroll.set)
+                my_game = ttk.Treeview(game_frame,xscrollcommand=h.set, yscrollcommand =v.set)
 
-                my_game.pack()
 
-                game_scroll.config(command=my_game.xview)
-                game_scroll.config(command=my_game.yview)
+                my_game.pack(fill='both', expand=True)
+
+                h.config(command=my_game.xview)
+                v.config(command=my_game.yview)
                 #define our column
                 
                 my_game['columns'] = ('Sno_Nodes', 'costs_of_nodes')
@@ -247,12 +250,8 @@ class Application:
                 my_game.heading("#0",text="Id",anchor=CENTER)
                 my_game.heading("Sno_Nodes",text="Nodes",anchor=CENTER)
                 my_game.heading("costs_of_nodes",text="Costs",anchor=CENTER)
-
-
-        #--------------------------------------- --------------------------------------- ---------------------------------------
                 for i in range(G.V):
                     res = format(D.dist[i],'.2f')
-                
                     my_game.insert(parent='',index='end',iid=i-1,text='', values=([i, res]))
                 my_game.pack()
                 # my_game.place (x=200,y=200)
@@ -261,31 +260,30 @@ class Application:
         if Algo == Algorithms[4]:
             BF = Ford(altG, self.R.src)
             BF.BellmanFord()
-            #--------------------------------------- ADDED THIS FROM NOW ---------------------------------------
+
             if(Pos==0):
                 ws  = Tk()
-                ws.title('PythonGuides')
-                ws.geometry('500x500')
+                ws.state('zoomed')
+                ws.title('BELLMANFORD RESULT')
+                # ws.geometry('500x500')
                 ws['bg'] = '#AC99F2'
 
-                game_frame = Frame(ws)
-                game_frame.pack()
+                game_frame = ttk.Frame(ws)
+                game_frame.pack(fill='both', expand=True)
                 #scrollbar
-                game_scroll = Scrollbar(game_frame,orient='horizontal')
-                game_scroll.pack(side= BOTTOM,fill=X)
+                h = Scrollbar(game_frame,orient='horizontal')
+                h.pack(side= BOTTOM,fill=X)
 
-                game_scroll = Scrollbar(game_frame)
-                game_scroll.pack(side=RIGHT, fill=Y)
+                v = Scrollbar(game_frame)
+                v.pack(side=RIGHT, fill=Y)
 
-
-
-                my_game = ttk.Treeview(game_frame,xscrollcommand=game_scroll.set, yscrollcommand =game_scroll.set)
+                my_game = ttk.Treeview(game_frame,xscrollcommand=h.set, yscrollcommand =v.set)
 
 
-                my_game.pack()
+                my_game.pack(fill='both', expand=True)
 
-                game_scroll.config(command=my_game.xview)
-                # game_scroll.config(command=my_game.yview)
+                h.config(command=my_game.xview)
+                v.config(command=my_game.yview)
                 #define our column
                 
                 my_game['columns'] = ('Sno_Nodes', 'costs_of_nodes')
@@ -300,10 +298,8 @@ class Application:
                 my_game.heading("Sno_Nodes",text="Nodes",anchor=CENTER)
                 my_game.heading("costs_of_nodes",text="Costs",anchor=CENTER)
 
-
-        #--------------------------------------- --------------------------------------- ---------------------------------------
                 for i in range(G.V):
-                    res = format(BF.val[i],'.2f')
+                    res = format(BF.val[i]*10,'.4f')
                     # res +=  format(i) + "\t|\t"  + format(BF.val[i],'.2f') + '\n'
                     my_game.insert(parent='',index='end',iid=i-1,text='', values=([i, res]))
                 my_game.pack()
@@ -311,29 +307,29 @@ class Application:
         if Algo == Algorithms[5]:
             F = Floyd(altG)
             F.FloydWarshall()
-                                            #--------------------------------------- ADDED THIS FROM NOW ---------------------------------------
             if(Pos==0):
                 ws  = Tk()
-                ws.title('PythonGuides')
-                ws.geometry('500x500')
+                ws.state('zoomed')
+                ws.title('FLOYDWARSHALL RESULT')
+                # ws.geometry('1000x600')
                 ws['bg'] = '#AC99F2'
 
-                game_frame = Frame(ws)
-                game_frame.pack()
+                game_frame = ttk.Frame(ws)
+                game_frame.pack(fill='both', expand=True)
                 #scrollbar
-                game_scroll = Scrollbar(game_frame,orient='horizontal')
-                game_scroll.pack(side= BOTTOM,fill=X)
+                h = Scrollbar(game_frame,orient='horizontal')
+                h.pack(side= BOTTOM,fill=X)
 
-                game_scroll = Scrollbar(game_frame)
-                game_scroll.pack(side=RIGHT, fill=Y)
+                v = Scrollbar(game_frame)
+                v.pack(side=RIGHT, fill=Y)
 
-                my_game = ttk.Treeview(game_frame,xscrollcommand=game_scroll.set, yscrollcommand =game_scroll.set)
+                my_game = ttk.Treeview(game_frame,xscrollcommand=h.set, yscrollcommand =v.set)
 
 
-                my_game.pack()
+                my_game.pack(fill='both', expand=True)
 
-                game_scroll.config(command=my_game.xview)
-                game_scroll.config(command=my_game.yview)
+                h.config(command=my_game.xview)
+                v.config(command=my_game.yview)
                 #define our column
                 
                 col = []    
@@ -353,14 +349,12 @@ class Application:
                 for i in range(G.V):
                     my_game.heading("{}".format(i),text="{}".format(i))
 
-        #--------------------------------------- --------------------------------------- ---------------------------------------
                 array = []
                 for i in range(G.V):
                     array.append(i)
                     # res+= "{0:.2f}  ".format(i)
                     for j in range(G.V):
-                        array.append(F.dist[i][j])
-
+                        array.append(format(F.dist[i][j]*10,'.4f'))
                     array = tuple(array)
                     print(array)
                     my_game.insert(parent='',index='end',iid=i, values=array)
@@ -401,8 +395,8 @@ class Application:
                 self.resultLabel = tk.Label(
                 self.AlgorithmWindow, text=res , font="San-Serif",borderwidth=2,relief="solid"
                 )
-                self.resultLabel.place(x = 400, y = 550)
-            self.resetBtn = tk.Button(self.AlgorithmWindow, text="Select Next Algo",bd="8", font=('TimesNew Roman bold',12,'bold'),fg=fgColor, command = lambda : [self.resetStates(Algo)]).place(x=800,y=450)
+                self.resultLabel.place(x = 550, y = 550)
+            self.resetBtn = tk.Button(self.AlgorithmWindow, text="Select Next Algo",bd="8", font=('TimesNew Roman bold',12,'bold'),fg=fgColor, command = lambda : [self.resetStates(Algo)]).place(x=750,y=450)
             #New Window
 
     def resetStates(self, Algo):
@@ -434,7 +428,6 @@ class Application:
 root = tk.Tk()
 root.iconify()
 root.title('HomePage')
-# root.geometry("600x400")
 root.state('zoomed')
 root.configure(bg=bgColor)
 app = Application(root)
