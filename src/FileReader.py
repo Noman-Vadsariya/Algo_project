@@ -113,12 +113,20 @@ class ReadEngine:
         self.Insert_Edges()
         
         # plt.figure()
-        plt.figure('Figure-{} Nodes'.format(self.Total_nodes),figsize=(300,150),dpi=80)
+        # screen_width = self.winfo_screenwidth()
+        # screen_height = self..winfo_screenheight()
+        plt.figure('Figure-{} Nodes'.format(self.Total_nodes),figsize=(320,160),dpi=65)
 
-        pos=nx.get_node_attributes(self.G,'pos')
-        nx.draw_networkx(self.G,pos)
+        pos = nx.get_node_attributes(self.G,'pos')
+        nx.draw_networkx(self.G,pos,node_color='#00b4d9')
+        # pos = nx.spring_layout(self.G, k=0.15, iterations=20)
+
         labels = nx.get_edge_attributes(self.G,'weight')
         nx.draw_networkx_edge_labels(self.G,pos,edge_labels=labels)
+        pos = nx.spring_layout(self.G, k=1, iterations=20)
+        # pos = nx.spring_layout(G, scale=2)  # double distance between all nodes
+        # nx.draw(G, pos)
         mng = plt.get_current_fig_manager()
         mng.window.state('zoomed')
+        plt.tight_layout()
         plt.show()

@@ -164,7 +164,8 @@ class Application:
         self.destGenreCombo = ttk.Combobox(self.AlgorithmWindow, width=22, values=list(self.DEST_Nodes))
         self.destGenreCombo.set("ALL")
         self.destGenreCombo.place(x=730,y=350)
-        
+        if Algo == Algorithms[0] or Algo == Algorithms[1] or Algo == Algorithms[2]:
+            self.destGenreCombo.config(state="disabled")
         if Algo == Algorithms[6]:
             self.srcGenreCombo.config(state="disabled")
             self.destGenreCombo.config(state="disabled")
@@ -255,7 +256,6 @@ class Application:
         #--------------------------------------- --------------------------------------- ---------------------------------------
                 for i in range(G.V):
                     res = format(D.dist[i],'.2f')
-                
                     my_game.insert(parent='',index='end',iid=i-1,text='', values=([i, res]))
                 my_game.pack()
                 # my_game.place (x=200,y=200)
@@ -305,7 +305,7 @@ class Application:
 
         #--------------------------------------- --------------------------------------- ---------------------------------------
                 for i in range(G.V):
-                    res = format(BF.val[i],'.2f')
+                    res = format(BF.val[i]*10,'.4f')
                     # res +=  format(i) + "\t|\t"  + format(BF.val[i],'.2f') + '\n'
                     my_game.insert(parent='',index='end',iid=i-1,text='', values=([i, res]))
                 my_game.pack()
@@ -362,8 +362,7 @@ class Application:
                     array.append(i)
                     # res+= "{0:.2f}  ".format(i)
                     for j in range(G.V):
-                        array.append(F.dist[i][j])
-
+                        array.append(format(F.dist[i][j]*10,'.4f'))
                     array = tuple(array)
                     print(array)
                     my_game.insert(parent='',index='end',iid=i, values=array)

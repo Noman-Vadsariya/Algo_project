@@ -21,6 +21,8 @@ class MST_Graph:
         nx.draw_networkx(g,pos)
         labels = nx.get_edge_attributes(g,'weight')
         nx.draw_networkx_edge_labels(g,pos,edge_labels=labels)
+        mng = plt.get_current_fig_manager()
+        mng.window.state('zoomed')
         plt.show()
 
     def Other_MST(self,mst):
