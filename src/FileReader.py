@@ -119,13 +119,9 @@ class ReadEngine:
 
         pos = nx.get_node_attributes(self.G,'pos')
         nx.draw_networkx(self.G,pos,node_color='#00b4d9')
-        # pos = nx.spring_layout(self.G, k=0.15, iterations=20)
-
         labels = nx.get_edge_attributes(self.G,'weight')
         nx.draw_networkx_edge_labels(self.G,pos,edge_labels=labels)
         pos = nx.spring_layout(self.G, k=1, iterations=20)
-        # pos = nx.spring_layout(G, scale=2)  # double distance between all nodes
-        # nx.draw(G, pos)
         mng = plt.get_current_fig_manager()
         mng.window.state('zoomed')
         plt.tight_layout()

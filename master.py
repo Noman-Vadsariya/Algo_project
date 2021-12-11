@@ -34,6 +34,7 @@ class Application:
         super().__init__()
         self.master = master
         self.HomePage(master)
+        self.resultLabel = None
 
     def callback(self, url):
         webbrowser.open_new(url)
@@ -166,7 +167,8 @@ class Application:
         self.destGenreCombo.place(x=730,y=350)
         if Algo == Algorithms[0] or Algo == Algorithms[1] or Algo == Algorithms[2]:
             self.destGenreCombo.config(state="disabled")
-        if Algo == Algorithms[6]:
+
+        if Algo == Algorithms[6] or Algo == Algorithms[5]:
             self.srcGenreCombo.config(state="disabled")
             self.destGenreCombo.config(state="disabled")
             self.ViewGraphButton = tk.Button(self.AlgorithmWindow, text="View Graph", bd="8", font=('TimesNew Roman bold',12,'bold'),fg=fgColor, command=lambda: [self.ViewAlgoGraph(1)],state="disabled").place(x=600, y=450)
@@ -176,6 +178,8 @@ class Application:
         self.ViewResultButton = tk.Button(self.AlgorithmWindow, text="View Result", bd="8", font=('TimesNew Roman bold',12,'bold'),fg=fgColor, command=lambda: [self.ViewAlgoGraph(0)]).place(x=450, y=450)
 
     def ViewAlgoGraph(self,Pos):
+
+        self.resultLabelFlag = True
 
         G = Graph(self.R.Total_nodes)
         altG = Graph(self.R.Total_nodes)
@@ -212,48 +216,57 @@ class Application:
         if Algo == Algorithms[3]:
             D = Djikstra(G, self.R.src)
             D.djikstra()
-        
-            if(Pos==0):
-                ws  = Tk()
-                ws.state('zoomed')
-                ws.title('DIJIKSTRA RESULT')
-                # ws.geometry('500x500')
-                ws['bg'] = '#AC99F2'
-                # rootHeight = ws.winfo_height()
-                # rootWidth = ws.winfo_width()
-                game_frame = ttk.Frame(ws)
-                game_frame.pack(fill='both', expand=True)
-                #scrollbar
-                h = Scrollbar(game_frame,orient='horizontal')
-                h.pack(side= BOTTOM,fill=X)
 
-                v = Scrollbar(game_frame)
-                v.pack(side=RIGHT, fill=Y)
+            if self.resultLabel is not None:
+                self.resultLabel.destroy()
 
-                my_game = ttk.Treeview(game_frame,xscrollcommand=h.set, yscrollcommand =v.set)
+            if(Pos==0):   
+                if dest != 'ALL':
+                    d = int(dest)
+                    print("Maximum Spanning Tree Cost = {}".format(D.cost[d]))
+                    res = "Cost from {} to {} = {}".format(D.src,d,round(D.cost[d],2))
+                else:
+                    self.resultLabelFlag=False
+                    ws  = Tk()
+                    ws.state('zoomed')
+                    ws.title('DIJIKSTRA RESULT')
+                    # ws.geometry('500x500')
+                    ws['bg'] = '#AC99F2'
+                    # rootHeight = ws.winfo_height()
+                    # rootWidth = ws.winfo_width()
+                    game_frame = ttk.Frame(ws)
+                    game_frame.pack(fill='both', expand=True)
+                    #scrollbar
+                    h = Scrollbar(game_frame,orient='horizontal')
+                    h.pack(side= BOTTOM,fill=X)
+
+                    v = Scrollbar(game_frame)
+                    v.pack(side=RIGHT, fill=Y)
+
+                    my_game = ttk.Treeview(game_frame,xscrollcommand=h.set, yscrollcommand =v.set)
 
 
-                my_game.pack(fill='both', expand=True)
+                    my_game.pack(fill='both', expand=True)
 
-                h.config(command=my_game.xview)
-                v.config(command=my_game.yview)
-                #define our column
-                
-                my_game['columns'] = ('Sno_Nodes', 'costs_of_nodes')
+                    h.config(command=my_game.xview)
+                    v.config(command=my_game.yview)
+                    #define our column
+                    
+                    my_game['columns'] = ('Sno_Nodes', 'costs_of_nodes')
 
-                # format our column
-                my_game.column("#0", width=0,  stretch=NO)
-                my_game.column("Sno_Nodes",anchor=CENTER, width=80)
-                my_game.column("costs_of_nodes",anchor=CENTER, width=80)
-                
-                #Create Headings 
-                my_game.heading("#0",text="Id",anchor=CENTER)
-                my_game.heading("Sno_Nodes",text="Nodes",anchor=CENTER)
-                my_game.heading("costs_of_nodes",text="Costs",anchor=CENTER)
-                for i in range(G.V):
-                    res = format(D.dist[i],'.2f')
-                    my_game.insert(parent='',index='end',iid=i-1,text='', values=([i, res]))
-                my_game.pack()
+                    # format our column
+                    my_game.column("#0", width=0,  stretch=NO)
+                    my_game.column("Sno_Nodes",anchor=CENTER, width=80)
+                    my_game.column("costs_of_nodes",anchor=CENTER, width=80)
+                    
+                    #Create Headings 
+                    my_game.heading("#0",text="Id",anchor=CENTER)
+                    my_game.heading("Sno_Nodes",text="Nodes",anchor=CENTER)
+                    my_game.heading("costs_of_nodes",text="Costs",anchor=CENTER)
+                    for i in range(G.V):
+                        res = format(D.dist[i],'.2f')
+                        my_game.insert(parent='',index='end',iid=i-1,text='', values=([i, res]))
+                    my_game.pack()
                 # my_game.place (x=200,y=200)
 
 
@@ -261,57 +274,67 @@ class Application:
             BF = Ford(altG, self.R.src)
             BF.BellmanFord()
 
-            if(Pos==0):
-                ws  = Tk()
-                ws.state('zoomed')
-                ws.title('BELLMANFORD RESULT')
-                # ws.geometry('500x500')
-                ws['bg'] = '#AC99F2'
+            if self.resultLabel is not None:
+                self.resultLabel.destroy()
 
-                game_frame = ttk.Frame(ws)
-                game_frame.pack(fill='both', expand=True)
-                #scrollbar
-                h = Scrollbar(game_frame,orient='horizontal')
-                h.pack(side= BOTTOM,fill=X)
+            if(Pos==0):   
+                if dest != 'ALL':
+                    d = int(dest)
+                    print("Maximum Spanning Tree Cost = {}".format(BF.cost[d]))
+                    res = "Cost from {} to {} = {}".format(BF.src,d,round(BF.cost[d]*10,2))
+                else:
+                    self.resultLabelFlag=False
+                    ws  = Tk()
+                    ws.state('zoomed')
+                    ws.title('BELLMANFORD RESULT')
+                    # ws.geometry('500x500')
+                    ws['bg'] = '#AC99F2'
 
-                v = Scrollbar(game_frame)
-                v.pack(side=RIGHT, fill=Y)
+                    game_frame = ttk.Frame(ws)
+                    game_frame.pack(fill='both', expand=True)
+                    #scrollbar
+                    h = Scrollbar(game_frame,orient='horizontal')
+                    h.pack(side= BOTTOM,fill=X)
 
-                my_game = ttk.Treeview(game_frame,xscrollcommand=h.set, yscrollcommand =v.set)
+                    v = Scrollbar(game_frame)
+                    v.pack(side=RIGHT, fill=Y)
+
+                    my_game = ttk.Treeview(game_frame,xscrollcommand=h.set, yscrollcommand =v.set)
 
 
-                my_game.pack(fill='both', expand=True)
+                    my_game.pack(fill='both', expand=True)
 
-                h.config(command=my_game.xview)
-                v.config(command=my_game.yview)
-                #define our column
-                
-                my_game['columns'] = ('Sno_Nodes', 'costs_of_nodes')
+                    h.config(command=my_game.xview)
+                    v.config(command=my_game.yview)
+                    #define our column
+                    
+                    my_game['columns'] = ('Sno_Nodes', 'costs_of_nodes')
 
-                # format our column
-                my_game.column("#0", width=0,  stretch=NO)
-                my_game.column("Sno_Nodes",anchor=CENTER, width=80)
-                my_game.column("costs_of_nodes",anchor=CENTER, width=80)
-                
-                #Create Headings 
-                my_game.heading("#0",text="Id",anchor=CENTER)
-                my_game.heading("Sno_Nodes",text="Nodes",anchor=CENTER)
-                my_game.heading("costs_of_nodes",text="Costs",anchor=CENTER)
+                    # format our column
+                    my_game.column("#0", width=0,  stretch=NO)
+                    my_game.column("Sno_Nodes",anchor=CENTER, width=80)
+                    my_game.column("costs_of_nodes",anchor=CENTER, width=80)
+                    
+                    #Create Headings 
+                    my_game.heading("#0",text="Id",anchor=CENTER)
+                    my_game.heading("Sno_Nodes",text="Nodes",anchor=CENTER)
+                    my_game.heading("costs_of_nodes",text="Costs",anchor=CENTER)
 
-                for i in range(G.V):
-                    res = format(BF.val[i]*10,'.4f')
-                    # res +=  format(i) + "\t|\t"  + format(BF.val[i],'.2f') + '\n'
-                    my_game.insert(parent='',index='end',iid=i-1,text='', values=([i, res]))
-                my_game.pack()
+                    for i in range(G.V):
+                        res = format(BF.val[i]*10,'.4f')
+                        # res +=  format(i) + "\t|\t"  + format(BF.val[i],'.2f') + '\n'
+                        my_game.insert(parent='',index='end',iid=i-1,text='', values=([i, res]))
+                    my_game.pack()
 
         if Algo == Algorithms[5]:
             F = Floyd(altG)
             F.FloydWarshall()
+
             if(Pos==0):
+                self.resultLabelFlag = False
                 ws  = Tk()
                 ws.state('zoomed')
                 ws.title('FLOYDWARSHALL RESULT')
-                # ws.geometry('1000x600')
                 ws['bg'] = '#AC99F2'
 
                 game_frame = ttk.Frame(ws)
@@ -347,7 +370,10 @@ class Application:
                 my_game.column("#0",width=0,  stretch=NO)
 
                 for i in range(G.V):
-                    my_game.heading("{}".format(i),text="{}".format(i))
+                    my_game.column("{}".format(i),anchor=CENTER)
+
+                for i in range(G.V):
+                    my_game.heading("{}".format(i),text="{}".format(i),anchor=CENTER)
 
                 array = []
                 for i in range(G.V):
@@ -391,19 +417,20 @@ class Application:
                 self.showMST(self.R,obj,index,self.R.src,int(dest))
         
         elif(Pos==0):
-            if(Algo == Algorithms[0] or Algo==Algorithms[1] or Algo==Algorithms[2] or Algo==Algorithms[6]):
+            if(self.resultLabelFlag):
                 self.resultLabel = tk.Label(
                 self.AlgorithmWindow, text=res , font="San-Serif",borderwidth=2,relief="solid"
                 )
                 self.resultLabel.place(x = 550, y = 550)
-            self.resetBtn = tk.Button(self.AlgorithmWindow, text="Select Next Algo",bd="8", font=('TimesNew Roman bold',12,'bold'),fg=fgColor, command = lambda : [self.resetStates(Algo)]).place(x=750,y=450)
+
+        self.resetBtn = tk.Button(self.AlgorithmWindow, text="Select Next Algo",bd="8", font=('TimesNew Roman bold',12,'bold'),fg=fgColor, command = lambda : [self.resetStates(Algo)]).place(x=750,y=450)
             #New Window
 
     def resetStates(self, Algo):
         self.genreComboAlgo.config(state="normal")
         self.genreComboNodes.config(state="normal")
 
-        if(Algo == Algorithms[0] or Algo==Algorithms[1] or Algo==Algorithms[2] or Algo==Algorithms[6]):
+        if(self.resultLabel is not None):
             self.resultLabel.destroy()
 
         if(Algo != Algorithms[6]):
