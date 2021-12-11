@@ -285,7 +285,7 @@ class Application:
         if Algo == Algorithms[5]:
             F = Floyd(G)
             F.FloydWarshall()
-                                            #--------------------------------------- ADDED THIS FROM NOW ---------------------------------------
+            #--------------------------------------- ADDED THIS FROM NOW ---------------------------------------
             if(Pos==0):
                 ws  = Tk()
                 ws.title('PythonGuides')
