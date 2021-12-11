@@ -14,27 +14,33 @@ R.Initialize()
 # R.Display_Graph()
 
 G = Graph(R.Total_nodes)
+altG = Graph(R.Total_nodes)
 KG = KruskalGraph(R.Total_nodes)
 
 for u,v,w in R.graph:
     G.add_edge(u,v,w)
     KG.add_edge(u,v,w)
 
+for u,v,w in R.altGraph:
+    altG.add_edge(u,v,w)
+    
+# G.print_graph()
 # P = Prims(G,R.src)
 # P.Prims_MST()
+# print("MST COST = {}".format(P.PrimCost))
 # KG.KruskalMST()
-# KG.boruvkaMST()
+# KG.BoruvkaMST()
 
 # print()
-# D = Djikstra(G,R.src)
-# D.djikstra()
+D = Djikstra(G,R.src)
+D.djikstra()
 
 # print()
-F = Floyd(G)
-F.FloydWarshall()
+# F = Floyd(altG)
+# F.FloydWarshall()
 # print()
-# F = Ford(G,R.src)
-# F.BellmanFord()
+F = Ford(altG,R.src)
+F.BellmanFord()
 
 # print()
 # print()
@@ -43,7 +49,9 @@ F.FloydWarshall()
 
 
 # MST GRAPHS
-# mst = MST_Graph(R.Index,R.X_points,R.Y_points)
+mst = MST_Graph(R.Index,R.X_points,R.Y_points)
 # mst.Prims_MST(P.parent,P.val)
 # mst.Other_MST(KG.KruskalMst)
 # mst.Other_MST(KG.BoruvkaMst)
+mst.MST_SRC_DEST(1,6,D.parent,D.cost)
+mst.MST_SRC_DEST(1,6,F.parent,F.cost)

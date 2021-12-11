@@ -3,18 +3,20 @@ import sys
 
 class Djikstra:
     def __init__(self,G,src):
-        self.dist = [float(sys.maxsize)] * G.V
+        self.dist = [float(-sys.maxsize)] * G.V
         self.G = G
         self.src = src
         self.path = []
+        self.parent = [None] * G.V
+        self.cost = [sys.maxsize]*G.V
 
-    def FindMin(self,val, vis, V):
+    def FindMax(self,val, vis, V):
 
-        min = sys.maxsize
-        vertex = 0
+        max = -sys.maxsize
+        vertex = self.src
 
         for i in range(V):
-            if not vis[i] and val[i] < min:
+            if not vis[i] and val[i] > max:
                 min = val[i]
                 vertex = i
 
@@ -24,16 +26,21 @@ class Djikstra:
 
         self.dist[self.src] = 0
         vis = [False] * self.G.V
+        self.parent[self.src] = -1
+        self.cost[self.src] = 0
 
         for cout in range(self.G.V):
-            min = self.FindMin(self.dist, vis, self.G.V)
+            max = self.FindMax(self.dist, vis, self.G.V)
 
-            vis[min] = True
+            vis[max] = True
             
-            tNode = self.G.graph[min]
+            tNode = self.G.graph[max]
             while tNode is not None:
-                if not vis[tNode.vertex] and self.dist[tNode.vertex] > self.dist[min] + tNode.weight:
-                    self.dist[tNode.vertex] = self.dist[min] + tNode.weight
+                if not vis[tNode.vertex] and self.dist[tNode.vertex] < self.dist[max] + tNode.weight:
+                    self.dist[tNode.vertex] = self.dist[max] + tNode.weight
+                    self.parent[tNode.vertex] = max
+                    self.cost[tNode.vertex] = tNode.weight
+                    
                     curr = tNode.vertex
                     w = tNode.weight
                     
@@ -41,7 +48,7 @@ class Djikstra:
                         if v==tNode.vertex:
                             self.path.remove([u,v,w])
 
-                    self.path.append([min,tNode.vertex,tNode.weight])
+                    self.path.append([max,tNode.vertex,tNode.weight])
                 
                 tNode=tNode.next
             

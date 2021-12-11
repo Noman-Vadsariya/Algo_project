@@ -15,7 +15,8 @@ class ReadEngine:
     def __init__(self, filename):
         self.filename = self.filename + filename;
         self.G = nx.Graph()
-        self.graph = [] 
+        self.graph = []
+        self.altGraph = [] 
         self.src = None
         # print(filename);
         # print(self.filename);
@@ -55,6 +56,8 @@ class ReadEngine:
                     j+=2                    
 
                     self.graph.append([u,v,w])
+                    w = round(1/w,4)
+                    self.altGraph.append([u,v,w]) #for bellman ford and Floyd Warshall
                 # print()
 
             f.readline()
@@ -71,6 +74,8 @@ class ReadEngine:
         for u,v,w in self.graph:
             if u == v:
                 self.graph.remove([u,v,w])
+                w = round(1/w,4)
+                self.altGraph.remove([u,v,w])
 
     def Insert_Nodes(self):
         for i in self.Index:

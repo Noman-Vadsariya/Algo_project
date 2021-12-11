@@ -7,9 +7,13 @@ class Ford:
         self.val = [float("Inf")]*G.V;
         self.src = src
         self.path = []
+        self.parent = [None]*G.V
+        self.cost = [None]*G.V
 
     def BellmanFord(self):
         self.val[self.src] = 0;
+        self.parent[self.src] = -1;
+        self.cost[self.src] = 0;
 
         for k in range(self.G.V-1):  #each node will be relaxed vertex-1 times
             for i in range(self.G.V): #all the vertexes will be relaxed
@@ -18,6 +22,8 @@ class Ford:
                 while (temp is not None):
                     if (self.val[temp.vertex] > self.val[i] + temp.weight):
                         self.val[temp.vertex] = self.val[i] + temp.weight;
+                        self.parent[temp.vertex] = i
+                        self.cost[temp.vertex] = temp.weight
 
                         for u,v,w in self.path:
                             if v==temp.vertex:

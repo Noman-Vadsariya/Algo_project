@@ -16,11 +16,11 @@ class KruskalGraph:
     def add_edge(self, u, v, w):
 
         for src,dest,weight in self.graph:
-            if(u==dest and v==src and weight>w):
+            if(u==dest and v==src and weight<w):
                 self.graph.remove([src,dest,weight])
                 self.graph.append([u, v, w])
                 return
-            elif (u==dest and v==src and weight<w):
+            elif (u==dest and v==src and weight>w):
                 return
 
         self.graph.append([u, v, w])
@@ -69,8 +69,9 @@ class KruskalGraph:
         # weight. If we are not allowed to change the
         # given graph, we can create a copy of graph
         self.graph = sorted(self.graph,
-                            key=lambda item: item[2])
+                            key=lambda item: item[2],reverse=True)
 
+        # print(self.graph)
         parent = []
         rank = []
 
@@ -103,10 +104,10 @@ class KruskalGraph:
         print ("Edges in the constructed MST")
         for u, v, weight in self.KruskalMst:
             minimumCost += weight
-            # print("%d -- %d == %d" % (u, v, weight))
+            print("%d -- %d == %d" % (u, v, weight))
 
         self.KruskalCost = minimumCost
-        # print("Minimum Spanning Tree Cost = {}".format(self.KruskalCost))
+        print("Minimum Spanning Tree Cost = {}".format(self.KruskalCost))
         # print(self.KruskalMst)
 
     
@@ -134,10 +135,10 @@ class KruskalGraph:
 
                 if set1 != set2:	
                     
-                    if cheapest[set1] == -1 or cheapest[set1][2] > w :
+                    if cheapest[set1] == -1 or cheapest[set1][2] < w :
                         cheapest[set1] = [u,v,w]
 
-                    if cheapest[set2] == -1 or cheapest[set2][2] > w :
+                    if cheapest[set2] == -1 or cheapest[set2][2] < w :
                         cheapest[set2] = [u,v,w]
 
             # Consider the above picked cheapest edges and add them
