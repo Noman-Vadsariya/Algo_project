@@ -230,10 +230,7 @@ class Application:
                     ws  = Tk()
                     ws.state('zoomed')
                     ws.title('DIJIKSTRA RESULT')
-                    # ws.geometry('500x500')
                     ws['bg'] = '#AC99F2'
-                    # rootHeight = ws.winfo_height()
-                    # rootWidth = ws.winfo_width()
                     game_frame = ttk.Frame(ws)
                     game_frame.pack(fill='both', expand=True)
                     #scrollbar
@@ -357,9 +354,10 @@ class Application:
                 
                 col = []    
                 
-                for i in range(G.V):
+                for i in range(G.V+1):
                     s = "{}".format(i)
                     col.append(s)
+
                 print(col)
                 col = tuple(col)
                 print(col)
@@ -369,11 +367,13 @@ class Application:
 
                 my_game.column("#0",width=0,  stretch=NO)
 
-                for i in range(G.V):
+                for i in range(G.V+1):
                     my_game.column("{}".format(i),anchor=CENTER)
 
+                my_game.heading(0,text="",anchor=CENTER)
+                
                 for i in range(G.V):
-                    my_game.heading("{}".format(i),text="{}".format(i),anchor=CENTER)
+                    my_game.heading("{}".format(i+1),text="{}".format(i),anchor=CENTER)
 
                 array = []
                 for i in range(G.V):
