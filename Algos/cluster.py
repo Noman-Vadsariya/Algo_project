@@ -8,12 +8,12 @@ class Cluster:
         self.avg = 0
 
     def Local_Clustering(self):
-        cluster = nx.clustering(self.G)
+        self.cluster = nx.clustering(self.G)
         sum = 0.0
         cnt = 0
 
-        for key in cluster:
-            sum += cluster[key]
+        for key in self.cluster:
+            sum += self.cluster[key]
             cnt += 1
 
         self.avg = sum/cnt
